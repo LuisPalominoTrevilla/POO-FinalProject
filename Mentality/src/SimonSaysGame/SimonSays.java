@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import Games.Game;
 import Menuprincipal.MainMenu;
+import Users.User;
 
 public class SimonSays extends Game{
     
@@ -26,15 +27,16 @@ public class SimonSays extends Game{
     public void playGame() {
         String[] botones= {"Iniciar", "volver"};
         Object[] boton={"Iniciar", "volver"};
-        s=new SimonSaysFrame(this);
+        User user=(this.parent.getModel().getUsers()[this.parent.getModel().getCurrentUser()]);
+        s=new SimonSaysFrame(this, user);
         s.setLocationRelativeTo(null);
-        int choice = JOptionPane.showOptionDialog(s, "Bienvenido al juego de simÛn Dice \n"
+        int choice = JOptionPane.showOptionDialog(s, "Bienvenido al juego de sim√≥n Dice \n"
                 + "1.-Observe la secuencia de colores que \n"
-                + "aparecer· en la parte inferior de la pantalla\n"
+                + "aparecer√° en la parte inferior de la pantalla\n"
                 + "2.-Memorice la secuencia de Colors\n"
                 + "3.-Repita la secuencia presionando los\n"
                 + "Botones de la parte superior\n"
-                + "4.-Perder· si presiona el botÛn incorrecto\n"
+                + "4.-Perder√° si presiona el bot√≥n incorrecto\n"
                 + "o si se agota el tiempo\n","Instrucciones,",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,botones, boton[0]);
         if (choice==JOptionPane.YES_OPTION){
             s.start();
