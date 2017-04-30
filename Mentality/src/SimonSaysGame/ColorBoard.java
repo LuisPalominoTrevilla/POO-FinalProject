@@ -45,11 +45,13 @@ public class ColorBoard extends JPanel implements ActionListener, Runnable {
 	private JLabel lbInicio;
 	private Musica musica;
 	private boolean dibujarStart;
+	private SimonSaysFrame frame;
 	
 	
-	public ColorBoard(Secuencia secuencia, Score sc, SimonSays parent){
+	public ColorBoard(Secuencia secuencia, Score sc, SimonSays parent, SimonSaysFrame frame){
 		super();
 		this.parent = parent;
+		this.frame = frame;
 		this.setPreferredSize(new Dimension(700,350));
 		this.setBackground(Color.gray);
 		
@@ -205,6 +207,9 @@ public class ColorBoard extends JPanel implements ActionListener, Runnable {
 	}
 	
 	public void Derrota(){
+		this.frame.getUser().setScore(this.sc.getScore(), "SimonSays");
+		this.frame.getUser().setLevel(this.sc.getNivel());
+		this.frame.getUser().setTime(this.sc.getTmPlay(), "SimonSays");
 		this.sc.detenerCronometro();
 		this.musica.setTocar(6);
 		this.musica.tocar();
@@ -212,8 +217,8 @@ public class ColorBoard extends JPanel implements ActionListener, Runnable {
 		this.btGreen.setEnabled(false);
 		this.btRed.setEnabled(false);
 		this.btYellow.setEnabled(false);
-		int choice=JOptionPane.showOptionDialog(this, "Tu Puntuación fue de: " +this.sc.getScore() +"\n"
-				+ "¿Quieres intentarlo de nuevo?", "Has perdido",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,this.botones, this.boton[0]);
+		int choice=JOptionPane.showOptionDialog(this, this.frame.getUser().getName()+ " tu PuntuaciÃ³n fue de: " +this.sc.getScore() +"\n"
+				+ "Â¿Quieres intentarlo de nuevo?", "Has perdido",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,this.botones, this.boton[0]);
 		if (choice==JOptionPane.YES_OPTION){
 			try{	
 				this.musica.reset();
@@ -309,4 +314,6 @@ public class ColorBoard extends JPanel implements ActionListener, Runnable {
 		this.lbInicio.setText("Observa la secuencia");
 		this.lbInicio.setVisible(false);
 	}
+	
+	
 }
