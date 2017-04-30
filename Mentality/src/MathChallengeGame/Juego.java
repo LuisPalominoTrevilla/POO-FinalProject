@@ -14,11 +14,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Users.User;
+
 public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyListener{
 
 	private String[] botones= {"Reiniciar", "volver"};
 	private Object[] boton={"Reiniciar", "volver"};
-	private Score sc = new Score(this);
+	private Score sc;
 	private BotonRegresar btRegreso = new BotonRegresar();
 	private JButton btSiguienteNivel= new JButton();
 	private JButton btNivelAnterior= new JButton();
@@ -42,8 +44,9 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 	private Divisiones divisiones;
 	private Combinadas combinadas;
 	private t digito;
+	private User user;
 	
-	public Juego(){
+	public Juego(User user){
 		super();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
@@ -54,6 +57,8 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 		this.juegos= new PanelJuegos();
 		this.juegos.setJuego(this);
 		this.juegoC="Ninguno";
+		this.user=user;
+		this.sc=new Score(this, this.user);
 		
 		this.btRegreso.addActionListener(this);
 		this.btRegreso.setIcon(new ImageIcon("src\\MathChallengeGame\\Images\\regresar.png"));
@@ -196,17 +201,19 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 	
 	public void derrota(){
 		this.detenerCronometro();
+		this.user.setScore(this.sc.getScore(), "MathGame");
+		this.user.setTime(this.sc.getTmPlay(), "MathGame");
 		String mensaje="";
 		if ((this.juego.equals("Divisiones") || this.juegoC.equals("Divisiones")) && this.nivel>3){
 			mensaje="El resultado correcto era: " +this.resultado + "\n"
 					+ "Y el residuo: " + this.residuo +"\n"
-					+"Tu Puntuación fue de: " +this.sc.getScore() +"\n"
-					+ "¿Quieres intentarlo de nuevo?";
+					+this.user.getName()+" tu PuntuaciÃ³n fue de: " +this.sc.getScore() +"\n"
+					+ "Â¿Quieres intentarlo de nuevo?";
 		}
 		else{
 			mensaje="El resultado correcto era: " +this.resultado + "\n"
-					+"Tu Puntuación fue de: " +this.sc.getScore() +"\n"
-					+ "¿Quieres intentarlo de nuevo?";
+					+this.user.getName()+ " tu PuntuaciÃ³n fue de: " +this.sc.getScore() +"\n"
+					+ "Â¿Quieres intentarlo de nuevo?";
 		}
 		int choice=JOptionPane.showOptionDialog(this, mensaje, "Has perdido",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,this.botones, this.boton[0]);
 		if (choice==JOptionPane.YES_OPTION){
@@ -216,6 +223,10 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 		else{
 			this.volver();
 		}
+	}
+	
+	public User getUser(){
+		return this.user;
 	}
 	
 	public void residuo(boolean activar){
@@ -268,6 +279,8 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 	
 	public void volver(){
 		this.sc.detenerCronometro();
+		this.user.setScore(this.sc.getScore(), "MathGame");
+		this.user.setTime(this.sc.getTmPlay(), "MathGame");
 		if (this.juego.equals("Sumas")){
 			this.sumas.setVisible(true);
 			this.setVisible(false);
@@ -299,6 +312,8 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 				this.volver();
 			}
 			else if (e.getSource()==this.btSiguienteNivel){
+				this.user.setScore(this.sc.getScore(), "MathGame");
+				this.user.setTime(this.sc.getTmPlay(), "MathGame");
 				this.nivel++;
 				this.juegos.setNivel(this.nivel);
 				this.detenerCronometro();
@@ -323,6 +338,8 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 				}
 			}
 			else if (e.getSource()==this.btNivelAnterior){
+				this.user.setScore(this.sc.getScore(), "MathGame");
+				this.user.setTime(this.sc.getTmPlay(), "MathGame");
 				this.nivel-=1;
 				this.juegos.setNivel(this.nivel);
 				this.detenerCronometro();
@@ -379,8 +396,8 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 				this.derrota();
 			}
 		}catch (NumberFormatException ev){
-			JOptionPane.showMessageDialog(this,"Esto no es un número\n"
-					+ "Introduzca un numero", "Introduzca un número", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this,"Esto no es un nÃºmero\n"
+					+ "Introduzca un numero", "Introduzca un nÃºmero", JOptionPane.INFORMATION_MESSAGE);
 			this.juegos.cleanResultado();
 		}
 	}
