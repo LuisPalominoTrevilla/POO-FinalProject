@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import Games.Game;
 import Menuprincipal.MainMenu;
+import Users.User;
 
 public class MathChallenge extends Game{
 
@@ -26,11 +27,12 @@ public class MathChallenge extends Game{
     public void playGame() {
         String[] botones= {"Iniciar", "volver"};
         Object[] boton={"Iniciar", "volver"};
-        this.m= new Mate(this);
+        User user=(this.parent.getModel().getUsers()[this.parent.getModel().getCurrentUser()]);
+        this.m= new Mate(this, user);
         this.m.setLocationRelativeTo(null);
         int choice = JOptionPane.showOptionDialog(m, "Bienvenido al juego de Matematicas \n"
                 + "Existen 5 modalidades de juego\n"
-                + "En cada una solo encontrar·s ese tipo de operaciones\n"
+                + "En cada una solo encontrar√°s ese tipo de operaciones\n"
                 + "Responde las operaciones corectamente y acumula puntos", "Intrucciones",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,botones, boton[0]);
         if (choice==JOptionPane.NO_OPTION || choice==JOptionPane.CLOSED_OPTION){
             this.endGame();
