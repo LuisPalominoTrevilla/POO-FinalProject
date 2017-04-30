@@ -14,7 +14,7 @@ public class PanelBoard extends JPanel{
     private MemoryController controller;
     private JButton[] cards;
     
-    public PanelBoard(MemoryView parent){
+    public PanelBoard(Memory parent){
         super();
         
         this.setPreferredSize(new Dimension(970, 850));

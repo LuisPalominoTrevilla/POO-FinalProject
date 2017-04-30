@@ -21,8 +21,8 @@ public class MemoryView extends JFrame{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.parent = parent;
         this.model = this.parent.getModel();
-        this.pb = new PanelBoard(this);
-        this.po = new PanelOptions(this);
+        this.pb = new PanelBoard(parent);
+        this.po = new PanelOptions(parent);
         
         this.add(this.pb);
         this.add(this.po, BorderLayout.EAST);
@@ -38,10 +38,6 @@ public class MemoryView extends JFrame{
     public void update(){
         this.po.update();
         this.pb.update();
-    }
-    
-    public MemoryModel getModel(){
-        return this.model;
     }
     
     public void addController(MemoryController controller){
