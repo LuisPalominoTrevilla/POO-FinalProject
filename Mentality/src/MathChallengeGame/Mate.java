@@ -47,39 +47,16 @@ public class Mate extends JFrame implements ActionListener{
 		this.gm.setLocationRelativeTo(null);
 		//Sumas
 		this.juegoSumas= new JuegoSumas(this.gm);
-		this.sumas= new Sumas(this, this.juegoSumas, this.gm);
-		this.gm.setJuegoSumas(this.juegoSumas);
-		this.gm.setSumas(this.sumas);
-		this.sumas.setLocationRelativeTo(null);
 		//Restas
 		this.juegoRestas = new JuegoRestas(this.gm);
-		this.restas = new Restas (this, this.juegoRestas, this.gm);
-		this.gm.setJuegoRestas(this.juegoRestas);
-		this.gm.setRestas(this.restas);
-		this.restas.setLocationRelativeTo(null);
 		//Multiplicaciones
 		this.juegoMultiplicaciones = new JuegoMultiplicaciones(this.gm);
-		this.multiplicaciones = new Multiplicaciones(this, this.juegoMultiplicaciones, this.gm);
-		this.gm.setJuegoMultiplicaciones(this.juegoMultiplicaciones);
-		this.gm.setMultiplicaciones(this.multiplicaciones);
-		this.multiplicaciones.setLocationRelativeTo(null);
 		//Divisiones
 		this.juegoDivisiones = new JuegoDivisiones(this.gm);
-		this.divisiones = new Divisiones(this, this.juegoDivisiones, this.gm);
-		this.gm.setJuegoDivisiones(this.juegoDivisiones);
-		this.gm.setDivisiones(this.divisiones);
-		this.divisiones.setLocationRelativeTo(null);
-		//Combinadas
-		this.juegoCombinadas = new JuegoCombinadas(this.gm, this.juegoSumas, this.juegoRestas, this.juegoMultiplicaciones, this.juegoDivisiones);
-		this.combinadas = new Combinadas(this, this.juegoCombinadas, this.gm);
-		this.gm.setJuegoCombinadas(this.juegoCombinadas);
-		this.gm.setCombinadas(this.combinadas);
-		this.combinadas.setLocationRelativeTo(null);
-		
 		//Titulo
 		JPanel Titulo= new JPanel();
 		Titulo.setPreferredSize(new Dimension(700,100));
-		Titulos lbTitulo= new Titulos(Color.BLUE, "Matem·ticas", "Tahoma", 60);
+		Titulos lbTitulo= new Titulos(Color.BLUE, "Matem√°ticas", "Tahoma", 60);
 		Titulo.add(lbTitulo,BorderLayout.CENTER);
 		
 		//Botones
@@ -138,7 +115,7 @@ public class Mate extends JFrame implements ActionListener{
 		lbEspacio2.setPreferredSize(new Dimension(550,45));
 		botones.add(lbEspacio2);
 		
-		//AÒadir Componentes
+		//A√±adir Componentes
 		this.add(Titulo,BorderLayout.NORTH);
 		this.add(botones);
 		
@@ -148,29 +125,77 @@ public class Mate extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==this.btSumas){
-			this.sumas.setVisible(true);
-			this.setVisible(false);
+			if (this.sumas==null){
+				this.sumas= new Sumas(this, this.juegoSumas, this.gm);
+				this.gm.setJuegoSumas(this.juegoSumas);
+				this.gm.setSumas(this.sumas);
+				this.sumas.setLocationRelativeTo(null);
+				this.setVisible(false);
+				this.sumas.setVisible(true);
+			}else{
+				this.sumas.setVisible(true);
+				this.setVisible(false);
+			}
 		}
 		else if (e.getSource()==this.btRestas){
-			this.restas.setVisible(true);
-			this.setVisible(false);
+			if (this.restas==null){
+				this.restas = new Restas (this, this.juegoRestas, this.gm);
+				this.gm.setJuegoRestas(this.juegoRestas);
+				this.gm.setRestas(this.restas);
+				this.restas.setLocationRelativeTo(null);
+				this.setVisible(false);
+				this.restas.setVisible(true);
+			}
+			else{
+				this.restas.setVisible(true);
+				this.setVisible(false);
+			}
 		}
 		else if (e.getSource()==this.btMultiplicaciones){
-			this.multiplicaciones.setVisible(true);
-			this.setVisible(false);
+			if(this.multiplicaciones==null){
+				this.multiplicaciones = new Multiplicaciones(this, this.juegoMultiplicaciones, this.gm);
+				this.gm.setJuegoMultiplicaciones(this.juegoMultiplicaciones);
+				this.gm.setMultiplicaciones(this.multiplicaciones);
+				this.multiplicaciones.setLocationRelativeTo(null);
+				this.setVisible(false);
+				this.multiplicaciones.setVisible(true);
+			}
+			else{
+				this.multiplicaciones.setVisible(true);
+				this.setVisible(false);
+			}
 		}
 		else if (e.getSource()==this.btDivisiones){
-			this.divisiones.setVisible(true);
-			this.setVisible(false);
+			if(this.btDivisiones==null){
+				this.divisiones = new Divisiones(this, this.juegoDivisiones, this.gm);
+				this.gm.setJuegoDivisiones(this.juegoDivisiones);
+				this.gm.setDivisiones(this.divisiones);
+				this.divisiones.setLocationRelativeTo(null);
+				this.setVisible(false);
+				this.divisiones.setVisible(true);
+			}else{
+				this.divisiones.setVisible(true);
+				this.setVisible(false);
+			}
 		}
 		else if (e.getSource()==this.btCombinados){
-			this.combinadas.setVisible(true);
-			this.setVisible(false);
+			if (this.combinadas==null){
+				this.juegoCombinadas = new JuegoCombinadas(this.gm, this.juegoSumas, this.juegoRestas, this.juegoMultiplicaciones, this.juegoDivisiones);
+				this.combinadas = new Combinadas(this, this.juegoCombinadas, this.gm);
+				this.gm.setJuegoCombinadas(this.juegoCombinadas);
+				this.gm.setCombinadas(this.combinadas);
+				this.combinadas.setLocationRelativeTo(null);
+				this.setVisible(false);
+				this.combinadas.setVisible(true);
+			}else{
+				this.combinadas.setVisible(true);
+				this.setVisible(false);
+			}
 		}
 		else if (e.getSource()==this.btInstrucciones){
 			JOptionPane.showMessageDialog(this,"Bienvenido al juego de Matematicas \n"
 					+ "Existen 5 modalidades de juego\n"
-					+ "En cada una solo encontrar·s ese tipo de operaciones\n"
+					+ "En cada una solo encontrar√°s ese tipo de operaciones\n"
 					+ "Responde las operaciones corectamente y acumula puntos", "Intrucciones", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
