@@ -13,29 +13,46 @@ public class JuegoCombinadas {
 		private JuegoDivisiones juegoDivisiones;
 		private Random rand = new Random();
 		
-		public JuegoCombinadas(int nivel, Juego gm){
-			this.nivel=nivel;
+		public JuegoCombinadas(Juego gm, JuegoSumas juegoSumas, JuegoRestas juegoRestas, JuegoMultiplicaciones juegoMultiplicaciones, JuegoDivisiones juegoDivisiones){
 			this.gm=gm;
-			this.start();
+			this.juegoSumas=juegoSumas;
+			this.juegoRestas=juegoRestas;
+			this.juegoMultiplicaciones=juegoMultiplicaciones;
+			this.juegoDivisiones=juegoDivisiones;
+		}
+		
+		public void setNivel(int nivel){
+			this.nivel=nivel;
 		}
 		
 		public void start(){
 			juego = rand.nextInt(4);
 			if (juego==0){
-				this.juegoSumas = new JuegoSumas(this.nivel, this.gm);
+				this.gm.residuo(false);
+				this.juegoSumas.setNivel(this.nivel);
 				this.gm.setOperador("+");
+				this.gm.setJuegoC("Sumas");
+				this.juegoSumas.start();
 			}
 			else if (juego==1){
-				this.juegoRestas = new JuegoRestas(this.nivel, this.gm);
+				this.gm.residuo(false);
+				this.juegoRestas.setNivel(this.nivel);
 				this.gm.setOperador("-");
+				this.gm.setJuegoC("Restas");
+				this.juegoRestas.start();
 			}
 			else if (juego==2){
-				this.juegoMultiplicaciones = new JuegoMultiplicaciones(this.nivel, this.gm);
+				this.gm.residuo(false);
+				this.juegoMultiplicaciones.setNivel(this.nivel);
 				this.gm.setOperador("*");
+				this.gm.setJuegoC("Multiplicaciones");
+				this.juegoMultiplicaciones.start();
 			}
 			else{
-				this.juegoDivisiones = new JuegoDivisiones(this.nivel, this.gm);
+				this.juegoDivisiones.setNivel(this.nivel);
 				this.gm.setOperador("/");
+				this.gm.setJuegoC("Divisiones");
+				this.juegoDivisiones.start();
 			}
 		}
 		

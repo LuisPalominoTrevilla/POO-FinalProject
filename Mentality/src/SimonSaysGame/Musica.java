@@ -11,7 +11,7 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-//import org.jfugue.player.Player;
+import org.jfugue.player.Player;
 
 
 public class Musica implements Runnable {
@@ -20,7 +20,7 @@ public class Musica implements Runnable {
 	
 	private Clip sonido;
 	
-	//private Player player;
+	private Player player;
 	
 	private File cuenta,
 				 inicio,
@@ -31,7 +31,7 @@ public class Musica implements Runnable {
 		try{
 		this.tocar=-1;
 		this.sonido= AudioSystem.getClip();
-		//this.player=new Player();
+		this.player=new Player();
 		
 		this.cuenta=new File("src\\SimonSaysGame\\Songs\\cuenta.wav");
 		this.inicio=new File("src\\SimonSaysGame\\Songs\\inicio.wav");
@@ -60,16 +60,16 @@ public class Musica implements Runnable {
 	public void run() {
 		try{
 			if (this.tocar==0){
-				//this.player.play("Cw");
+				this.player.play("Cw");
 			}
 			else if(this.tocar==1){
-				//this.player.play("Dw");
+				this.player.play("Dw");
 			}
 			else if(this.tocar==2){
-				//this.player.play("Ew");
+				this.player.play("Ew");
 			}
 			else if (this.tocar==3){
-				//this.player.play("Aw");
+				this.player.play("Aw");
 			}
 			else if(this.tocar==4){
 				sonido.open(AudioSystem.getAudioInputStream(this.cuenta));

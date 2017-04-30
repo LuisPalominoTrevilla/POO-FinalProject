@@ -26,15 +26,13 @@ public class MathChallenge extends Game{
     public void playGame() {
         String[] botones= {"Iniciar", "volver"};
         Object[] boton={"Iniciar", "volver"};
-        m= new Mate();
-        m.setLocationRelativeTo(null);
+        this.m= new Mate(this);
+        this.m.setLocationRelativeTo(null);
         int choice = JOptionPane.showOptionDialog(m, "Bienvenido al juego de Matematicas \n"
                 + "Existen 5 modalidades de juego\n"
                 + "En cada una solo encontrarás ese tipo de operaciones\n"
                 + "Responde las operaciones corectamente y acumula puntos", "Intrucciones",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,botones, boton[0]);
-        if (choice==JOptionPane.YES_OPTION){
-        }
-        else{
+        if (choice==JOptionPane.NO_OPTION || choice==JOptionPane.CLOSED_OPTION){
             this.endGame();
         }
     }

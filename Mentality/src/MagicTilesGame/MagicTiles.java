@@ -2,6 +2,7 @@ package MagicTilesGame;
 
 import Games.Game;
 import Menuprincipal.MainMenu;
+import Songs.Music;
 
 public class MagicTiles extends Game{
     

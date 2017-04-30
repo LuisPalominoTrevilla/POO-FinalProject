@@ -13,8 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Menuprincipal.MainMenu;
+
 public class Mate extends JFrame implements ActionListener{
 	
+    private MathChallenge parent;
 	private JButton btInstrucciones,
 						btSumas,
 						btRestas,
@@ -22,14 +25,56 @@ public class Mate extends JFrame implements ActionListener{
 						btDivisiones,
 						btRegresar,
 						btCombinados;
+	private Sumas sumas;
+	private Restas restas;
+	private Multiplicaciones multiplicaciones;
+	private Divisiones divisiones;
+	private Combinadas combinadas;
+	private Juego gm;
+	private JuegoSumas juegoSumas;
+	private JuegoRestas juegoRestas;
+	private JuegoMultiplicaciones juegoMultiplicaciones;
+	private JuegoDivisiones juegoDivisiones;
+	private JuegoCombinadas juegoCombinadas;
 	
-	private MathChallenge parent;
-	
-	public Mate(){
+	public Mate(MathChallenge parent){
 		super();
+		this.parent = parent;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
-
+		
+		this.gm= new Juego();
+		this.gm.setLocationRelativeTo(null);
+		//Sumas
+		this.juegoSumas= new JuegoSumas(this.gm);
+		this.sumas= new Sumas(this, this.juegoSumas, this.gm);
+		this.gm.setJuegoSumas(this.juegoSumas);
+		this.gm.setSumas(this.sumas);
+		this.sumas.setLocationRelativeTo(null);
+		//Restas
+		this.juegoRestas = new JuegoRestas(this.gm);
+		this.restas = new Restas (this, this.juegoRestas, this.gm);
+		this.gm.setJuegoRestas(this.juegoRestas);
+		this.gm.setRestas(this.restas);
+		this.restas.setLocationRelativeTo(null);
+		//Multiplicaciones
+		this.juegoMultiplicaciones = new JuegoMultiplicaciones(this.gm);
+		this.multiplicaciones = new Multiplicaciones(this, this.juegoMultiplicaciones, this.gm);
+		this.gm.setJuegoMultiplicaciones(this.juegoMultiplicaciones);
+		this.gm.setMultiplicaciones(this.multiplicaciones);
+		this.multiplicaciones.setLocationRelativeTo(null);
+		//Divisiones
+		this.juegoDivisiones = new JuegoDivisiones(this.gm);
+		this.divisiones = new Divisiones(this, this.juegoDivisiones, this.gm);
+		this.gm.setJuegoDivisiones(this.juegoDivisiones);
+		this.gm.setDivisiones(this.divisiones);
+		this.divisiones.setLocationRelativeTo(null);
+		//Combinadas
+		this.juegoCombinadas = new JuegoCombinadas(this.gm, this.juegoSumas, this.juegoRestas, this.juegoMultiplicaciones, this.juegoDivisiones);
+		this.combinadas = new Combinadas(this, this.juegoCombinadas, this.gm);
+		this.gm.setJuegoCombinadas(this.juegoCombinadas);
+		this.gm.setCombinadas(this.combinadas);
+		this.combinadas.setLocationRelativeTo(null);
 		
 		//Titulo
 		JPanel Titulo= new JPanel();
@@ -86,8 +131,8 @@ public class Mate extends JFrame implements ActionListener{
 		botones.add(this.btCombinados);
 		
 		this.btRegresar= new BotonRegresar();
-		this.btRegresar.setIcon(new ImageIcon("src\\MathChallengeGame\\Images\\regresar.PNG"));
 		this.btRegresar.addActionListener(this);
+		this.btRegresar.setIcon(new ImageIcon("src\\MathChallengeGame\\Images\\regresar.png"));
 		botones.add(this.btRegresar);
 		JLabel lbEspacio2 = new JLabel ("");
 		lbEspacio2.setPreferredSize(new Dimension(550,45));
@@ -103,29 +148,24 @@ public class Mate extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==this.btSumas){
-			Sumas sumas= new Sumas();
-			sumas.setLocationRelativeTo(null);
-			this.dispose();
+			this.sumas.setVisible(true);
+			this.setVisible(false);
 		}
 		else if (e.getSource()==this.btRestas){
-			Restas restas = new Restas();
-			restas.setLocationRelativeTo(null);
-			this.dispose();
+			this.restas.setVisible(true);
+			this.setVisible(false);
 		}
 		else if (e.getSource()==this.btMultiplicaciones){
-			Multiplicaciones multiplicaciones = new Multiplicaciones();
-			multiplicaciones.setLocationRelativeTo(null);
-			this.dispose();
+			this.multiplicaciones.setVisible(true);
+			this.setVisible(false);
 		}
 		else if (e.getSource()==this.btDivisiones){
-			Divisiones divisiones = new Divisiones();
-			divisiones.setLocationRelativeTo(null);
-			this.dispose();
+			this.divisiones.setVisible(true);
+			this.setVisible(false);
 		}
 		else if (e.getSource()==this.btCombinados){
-			Combinadas combinadas = new Combinadas();
-			combinadas.setLocationRelativeTo(null);
-			this.dispose();
+			this.combinadas.setVisible(true);
+			this.setVisible(false);
 		}
 		else if (e.getSource()==this.btInstrucciones){
 			JOptionPane.showMessageDialog(this,"Bienvenido al juego de Matematicas \n"
@@ -134,9 +174,10 @@ public class Mate extends JFrame implements ActionListener{
 					+ "Responde las operaciones corectamente y acumula puntos", "Intrucciones", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
-			//Crear ventana de regreso
-			this.dispose();
+			// Terminar el juego
+		    this.parent.endGame();
 		}
+			
 	}
 
 }

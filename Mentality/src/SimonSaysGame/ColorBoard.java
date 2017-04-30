@@ -16,11 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-//import org.jfugue.pattern.Pattern;
-//import org.jfugue.player.Player;
+import org.jfugue.pattern.Pattern;
+import org.jfugue.player.Player;
 
 public class ColorBoard extends JPanel implements ActionListener, Runnable {
 	
+    private SimonSays parent;
 	private JButton btRed,
 					btBlue,
 					btYellow,
@@ -45,15 +46,12 @@ public class ColorBoard extends JPanel implements ActionListener, Runnable {
 	private Musica musica;
 	private boolean dibujarStart;
 	
-	private SimonSays parent;
-	
 	
 	public ColorBoard(Secuencia secuencia, Score sc, SimonSays parent){
 		super();
+		this.parent = parent;
 		this.setPreferredSize(new Dimension(700,350));
 		this.setBackground(Color.gray);
-		
-		this.parent = parent;
 		
 		//Inicializar componentes
 		this.btRed=new JButton();
@@ -227,8 +225,7 @@ public class ColorBoard extends JPanel implements ActionListener, Runnable {
 			this.Start();
 		}
 		else{
-			// Salirse del juego
-		    this.parent.endGame();
+			this.parent.endGame();
 		}
 	}
 	

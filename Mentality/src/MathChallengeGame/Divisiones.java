@@ -21,12 +21,18 @@ public class Divisiones extends JFrame implements ActionListener {
 	btNivelCuatro,
 	btRegresar,
 	btNivelCinco;
+	private Mate mate;
+	private JuegoDivisiones juegoDivisiones;
+	private Juego gm;
 
-	public Divisiones(){
+	public Divisiones(Mate mate, JuegoDivisiones juegoDivisiones, Juego gm){
 		super();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
-
+		
+		this.mate=mate;
+		this.juegoDivisiones=juegoDivisiones;
+		this.gm=gm;
 		//Titulo
 		JPanel Titulo= new JPanel();
 		Titulo.setPreferredSize(new Dimension(700,100));
@@ -39,7 +45,7 @@ public class Divisiones extends JFrame implements ActionListener {
 
 		this.btInstrucciones= new JButton();
 		this.btInstrucciones.addActionListener(this);
-		this.btInstrucciones.setIcon(new ImageIcon("interrogacion.PNG"));
+		this.btInstrucciones.setIcon(new ImageIcon("src\\MathChallengeGame\\Images\\interrogacion.PNG"));
 		this.btInstrucciones.setPreferredSize(new Dimension(25,25));
 		JLabel lbespacio =new JLabel ("");
 		lbespacio.setPreferredSize(new Dimension (650,25));
@@ -81,9 +87,10 @@ public class Divisiones extends JFrame implements ActionListener {
 		this.btNivelCinco.setPreferredSize(new Dimension(650,50));
 		botones.add(this.btNivelCinco);
 
-		BotonRegresar btRegresar= new BotonRegresar();
-		btRegresar.addActionListener(this);
-		botones.add(btRegresar);
+		this.btRegresar= new BotonRegresar();
+		this.btRegresar.addActionListener(this);
+		this.btRegresar.setIcon(new ImageIcon("src\\MathChallengeGame\\Images\\regresar.png"));
+		botones.add(this.btRegresar);
 		JLabel lbEspacio2 = new JLabel ("");
 		lbEspacio2.setPreferredSize(new Dimension(550,45));
 		botones.add(lbEspacio2);
@@ -93,45 +100,65 @@ public class Divisiones extends JFrame implements ActionListener {
 		this.add(botones);
 
 		this.pack();
-		this.setVisible(true);
+		this.setVisible(false);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==this.btNivelUno){
-			Juego gm=new Juego(1, "Divisiones");
-			JuegoDivisiones juegoDivisiones = new JuegoDivisiones(1, gm);
-			gm.setJuegoDivisiones(juegoDivisiones);
-			gm.setLocationRelativeTo(null);
-			this.dispose();
+			this.gm.setNivel(1);
+			this.gm.setJuego("Divisiones");
+			this.juegoDivisiones.setNivel(1);
+			this.gm.setOperador("/");
+			this.gm.reset();
+			this.gm.activarBotones();
+			this.gm.setVisible(true);
+			this.setVisible(false);
+			this.juegoDivisiones.start();
 		}
 		else if(e.getSource()==this.btNivelDos){
-			Juego gm=new Juego(2, "Divisiones");
-			JuegoDivisiones juegoDivisiones = new JuegoDivisiones(2, gm);
-			gm.setJuegoDivisiones(juegoDivisiones);
-			gm.setLocationRelativeTo(null);
-			this.dispose();
+			this.gm.setNivel(2);
+			this.gm.setJuego("Divisiones");
+			this.juegoDivisiones.setNivel(2);
+			this.gm.setOperador("/");
+			this.gm.reset();
+			this.gm.activarBotones();
+			this.gm.setVisible(true);
+			this.setVisible(false);
+			this.gm.start();
 		}
 		else if(e.getSource()==this.btNivelTres){
-			Juego gm=new Juego(3, "Divisiones");
-			JuegoDivisiones juegoDivisiones = new JuegoDivisiones(3, gm);
-			gm.setJuegoDivisiones(juegoDivisiones);
-			gm.setLocationRelativeTo(null);
-			this.dispose();
+			this.gm.setNivel(3);
+			this.gm.setJuego("Divisiones");
+			this.juegoDivisiones.setNivel(3);
+			this.gm.setOperador("/");
+			this.gm.reset();
+			this.gm.activarBotones();
+			this.gm.setVisible(true);
+			this.setVisible(false);
+			this.gm.start();
 		}
 		else if(e.getSource()==this.btNivelCuatro){
-			Juego gm=new Juego(4, "Divisiones");
-			JuegoDivisiones juegoDivisiones = new JuegoDivisiones(4, gm);
-			gm.setJuegoDivisiones(juegoDivisiones);
-			gm.setLocationRelativeTo(null);
-			this.dispose();
+			this.gm.setNivel(4);
+			this.gm.setJuego("Divisiones");
+			this.juegoDivisiones.setNivel(4);
+			this.gm.setOperador("/");
+			this.gm.reset();
+			this.gm.activarBotones();
+			this.gm.setVisible(true);
+			this.setVisible(false);
+			this.gm.start();
 		}
 		else if(e.getSource()==this.btNivelCinco){
-			Juego gm=new Juego(5, "Divisiones");
-			JuegoDivisiones juegoDivisiones = new JuegoDivisiones(5, gm);
-			gm.setJuegoDivisiones(juegoDivisiones);
-			gm.setLocationRelativeTo(null);
-			this.dispose();
+			this.gm.setNivel(5);
+			this.gm.setJuego("Divisiones");
+			this.juegoDivisiones.setNivel(5);
+			this.gm.setOperador("/");
+			this.gm.reset();
+			this.gm.activarBotones();
+			this.gm.setVisible(true);
+			this.setVisible(false);
+			this.gm.start();
 		}
 		else if (e.getSource()==this.btInstrucciones){
 			JOptionPane.showMessageDialog(this,"Bienvenido al juego de Divisiones \n"
@@ -145,9 +172,8 @@ public class Divisiones extends JFrame implements ActionListener {
 					+ "Nivel 5: 3 digitos / 2 digitos + residuo", "Intrucciones", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
-			Mate mate = new Mate();
-			mate.setLocationRelativeTo(null);
-			this.dispose();
+			this.mate.setVisible(true);
+			this.setVisible(false);
 		}
 
 }

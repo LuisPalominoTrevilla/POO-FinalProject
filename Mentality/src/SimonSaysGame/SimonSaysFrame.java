@@ -9,16 +9,16 @@ import javax.swing.JPanel;
 
 public class SimonSaysFrame extends JFrame{
 	
+    private SimonSays parent;
 	private ColorBoard cB;
 	private Score sc;
 	private Secuencia secuencia;
-	private SimonSays parent;
 	
 	public SimonSaysFrame(SimonSays parent){
 		super();
+		this.parent = parent;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
-		this.parent = parent;
 		
 		//Inicializar Componentes
 		

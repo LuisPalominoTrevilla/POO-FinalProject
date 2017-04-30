@@ -9,27 +9,25 @@ public class JuegoDivisiones {
 	            resultado;
 	private Juego gm;
 	private Random rand = new Random();
-	private double numero1,
-	               numero2;
+	private int numero1,
+	            numero2;
 
-	public JuegoDivisiones(int nivel, Juego gm){
-		this.nivel=nivel;
+	public JuegoDivisiones(Juego gm){
 		this.numero1=0;
 		this.numero2=0;
 		this.gm=gm;
 		this.resultado=0;
-		this.start();
 	}
 
-
+	public void setNivel(int nivel){
+		this.nivel=nivel;
+	}
 
 	public void start(){
-		this.ponerResiduo();
 		this.numero1=this.generarDigitos1();
 		this.numero2=this.generarDigitos2();
-		this.gm.iniciarCronometro();
 		if(this.numero2>this.numero1){
-			double tmp = this.numero1;
+			int tmp = this.numero1;
 			this.numero1 =this.numero2;
 			this.numero2 = tmp;
 		}
@@ -50,14 +48,6 @@ public class JuegoDivisiones {
 		this.gm.iniciarCronometro();
 	}
 	
-	public void ponerResiduo(){
-		if (this.nivel>3){
-			this.gm.residuo(true);
-		}
-		else{
-			this.gm.residuo(false);
-		}
-	}
 
 	public void aumentarNivel(){
 		this.nivel++;
@@ -70,7 +60,7 @@ public class JuegoDivisiones {
 	}
 
 
-	public double generarDigitos1(){
+	public int generarDigitos1(){
 		if (this.nivel==1){
 			return rand.nextInt(9);
 		}
@@ -88,7 +78,7 @@ public class JuegoDivisiones {
 		}
 	}
 
-	public double generarDigitos2(){
+	public int generarDigitos2(){
 		if (this.nivel==1){
 			return rand.nextInt(9);
 		}

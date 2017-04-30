@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class PanelJuegos extends JPanel implements ActionListener, KeyListener{
+public class PanelJuegos <t> extends JPanel implements ActionListener, KeyListener{
 
 	private JButton btInstrucciones;
 	private String juego,
@@ -31,28 +31,12 @@ public class PanelJuegos extends JPanel implements ActionListener, KeyListener{
 					 residuo;
 	private int nivel;
 	private Juego gm;
+	private t digito;
 	
-	public PanelJuegos(String juego, int nivel) {
+	public PanelJuegos() {
 		super();
 		this.setPreferredSize(new Dimension(700,300));
 		this.setLayout(null);
-		
-		this.nivel=nivel;
-		this.juego=juego;
-		
-		if (this.juego.equals("Sumas")){
-			this.operador="+";
-		}
-		else if (this.juego.equals("Restas")){
-			this.operador="-";
-		}
-		else if (this.juego.equals("Multiplicaciones")){
-			this.operador="*";
-		}
-		else if (this.juego.equals("Divisiones")){
-			this.operador="/";
-		}
-		
 		
 		Font fuente = new Font("Tahoe", 0, 30);
 		this.lbdigito1 = new JLabel("");
@@ -74,24 +58,14 @@ public class PanelJuegos extends JPanel implements ActionListener, KeyListener{
 		this.residuo.setVisible(false);
 		this.residuo.addKeyListener(this);
 		
-		
-		if (this.juego.equals("Operaciones combinadas")){
-			this.titulo=new Titulos(Color.BLUE, "Juego de " + this.juego + "  Nivel: " + this.nivel, "Tahoe", 30);
-		}
-		else if (this.juego.equals("Multiplicaciones")){
-			this.titulo=new Titulos(Color.BLUE, "Juego de " + this.juego + "  Nivel: " + this.nivel, "Tahoe", 35);
-		}
-		else{
-			this.titulo=new Titulos(Color.BLUE, "Juego de " + this.juego + "  Nivel: " + this.nivel, "Tahoe", 50);
-		}
-		
 		this.btInstrucciones= new JButton();
 		this.btInstrucciones.addActionListener(this);
-		this.btInstrucciones.setIcon(new ImageIcon("interrogacion.PNG"));
+		this.btInstrucciones.setIcon(new ImageIcon("src\\MathChallengeGame\\Images\\interrogacion.PNG"));
 		this.btInstrucciones.setPreferredSize(new Dimension(25,25));
 		this.btInstrucciones.setBounds(660, 80, 25, 25);
 		this.add(this.btInstrucciones);
 		
+		this.titulo = new Titulos(Color.BLUE,"","Tahoe",30);
 		this.titulo.setBounds(50, 0, 700, 100);
 		this.add(this.titulo,BorderLayout.NORTH);
 		this.lbdigito1.setBounds(290, 120, 100, 45);
@@ -120,11 +94,28 @@ public class PanelJuegos extends JPanel implements ActionListener, KeyListener{
 		this.titulo.setText("Juego de " + this.juego + "  Nivel: " + this.nivel);
 	}
 	
-	public void setDigito1(double digito){
+	public void setJuego(String juego){
+		this.juego=juego;
+	}
+	
+	public void ponerTitulo(){
+		this.titulo.setText("Juego de " + this.juego + "  Nivel: " + this.nivel);
+		if (this.juego.equals("Operaciones combinadas")){
+			this.titulo.setFont(new Font("Tahoe", 0, 30));
+		}
+		else if (this.juego.equals("Multiplicaciones")){
+			this.titulo.setFont(new Font("Tahoe", 0, 35));
+		}
+		else{
+			this.titulo.setFont(new Font("Tahoe", 0, 50));
+		}
+	}
+	
+	public void setDigito1(t digito){
 		this.lbdigito1.setText(""+digito);
 	}
 	
-	public void setDigito2(double digito){
+	public void setDigito2(t digito){
 		this.lbdigito2.setText(""+digito);
 	}
 	
@@ -169,10 +160,10 @@ public class PanelJuegos extends JPanel implements ActionListener, KeyListener{
 			JOptionPane.showMessageDialog(this,"Bienvenido al juego de Sumas \n"
 					+ "Excribe el resultado correcto dentro de la caja de texto antes de que se agote el tiempo\n"
 					+ "Nivel 1: 1 digito + 1 digito\n"
-					+ "Nivel 2: 2 digitos + 1 digito\n"
-					+ "Nivel 3: 2 digitos + 2 digitos\n"
-					+ "Nivel 4: 3 digitos con 1 decimales + 2 digitos con 1 decimal\n"
-					+ "Nivel 5: 3 digitos con 2 decimales + 3 digitos con 2 decimales", "Intrucciones", JOptionPane.INFORMATION_MESSAGE);
+					+ "Nivel 2: 2 digitos + 2 digito\n"
+					+ "Nivel 3: 3 digitos + 3 digitos\n"
+					+ "Nivel 4: 4 digitos + 4 digitos\n"
+					+ "Nivel 5: 5 digitos + 3 digitos", "Intrucciones", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if (this.juego.equals("Restas")){
 			JOptionPane.showMessageDialog(this,"Bienvenido al juego de Restas \n"
@@ -181,7 +172,7 @@ public class PanelJuegos extends JPanel implements ActionListener, KeyListener{
 					+ "Nivel 2: 2 digitos - 1 digito\n"
 					+ "Nivel 3: 2 digitos - 2 digitos\n"
 					+ "Nivel 4: 2 digitos  - 2 digitos con resultados negativos\n"
-					+ "Nivel 5: 2 digitos con 1 decimal - 2 digitos con 1 decimal con negativos", "Intrucciones", JOptionPane.INFORMATION_MESSAGE);
+					+ "Nivel 5: 2 digitos - 3 digitos con negativos", "Intrucciones", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if (this.juego.equals("Multiplicaciones")){
 			JOptionPane.showMessageDialog(this,"Bienvenido al juego de Multiplicaciones \n"
@@ -189,8 +180,8 @@ public class PanelJuegos extends JPanel implements ActionListener, KeyListener{
 					+ "Nivel 1: 1 digito * 1 digito\n"
 					+ "Nivel 2: 2 digitos * 1 digito\n"
 					+ "Nivel 3: 3 digitos * 1 digitos\n"
-					+ "Nivel 4: 2 digitos * 2 digitos\n"
-					+ "Nivel 5: 2 digitos * 1 digitos con un decimal", "Intrucciones", JOptionPane.INFORMATION_MESSAGE);
+					+ "Nivel 4: 4 digitos * 1 digitos\n"
+					+ "Nivel 5: 2 digitos * 2 ", "Intrucciones", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if (this.juego.equals("Divisiones")){
 			JOptionPane.showMessageDialog(this,"Bienvenido al juego de Divisiones \n"

@@ -15,7 +15,6 @@ public class SimonSays extends Game{
 	public SimonSays(MainMenu parent) {
         super("SimonSays", "src\\Games\\SimonSaysThumbnail.png");
         this.parent = parent;
-        
     }
 
     public void endGame() {

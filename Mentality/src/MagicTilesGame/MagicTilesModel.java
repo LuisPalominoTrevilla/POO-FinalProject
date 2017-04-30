@@ -24,7 +24,8 @@ public class MagicTilesModel {
     static final int WHITE = 0xffffff,
                       BLACK = 0x000000,
                       GREEN = 0x36cc2e,
-                      RED = 0xba2323;
+                      RED = 0xba2323,
+                      YELLOW = 0xe8d05c;
     
     public MagicTilesModel(){
         this.state = 1;

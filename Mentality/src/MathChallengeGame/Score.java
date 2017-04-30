@@ -25,7 +25,6 @@ public class Score extends JPanel implements Runnable{
 		this.tm=10;
 		this.lv=1;
 		this.gm=gm;
-		
 		this.score = new JLabel();
 		this.score.setText("Score: "+this.sc);
 		this.time = new JLabel();
@@ -42,6 +41,7 @@ public class Score extends JPanel implements Runnable{
 		return this.sc;
 	}
 	public void Reset(){
+		this.detenerCronometro();
 		this.sc=0;
 		this.score.setText("Score: "+sc);
 		this.tm=10;

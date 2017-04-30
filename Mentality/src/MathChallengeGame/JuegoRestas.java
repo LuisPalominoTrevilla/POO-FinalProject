@@ -8,26 +8,26 @@ public class JuegoRestas {
 	            resultado;
 	private Juego gm;
 	private Random rand = new Random();
-	private double numero1,
+	private int numero1,
 	               numero2;
 
-	public JuegoRestas(int nivel, Juego gm){
-		this.nivel=nivel;
+	public JuegoRestas(Juego gm){
 		this.numero1=0;
 		this.numero2=0;
 		this.gm=gm;
 		this.resultado=0;
-		this.start();
 	}
 
-
+	public void setNivel(int nivel){
+		this.nivel=nivel;
+	}
 
 	public void start(){
 		this.numero1=this.generarDigitos1();
 		this.numero2=this.generarDigitos2();
 		if (this.nivel<4){
 			if(this.numero2>this.numero1){
-				double tmp = this.numero1;
+				int tmp = this.numero1;
 				this.numero1 =this.numero2;
 				this.numero2 = tmp;
 			}
@@ -49,7 +49,7 @@ public class JuegoRestas {
 	}
 
 
-	public double generarDigitos1(){
+	public int generarDigitos1(){
 		if (this.nivel==1){
 			return rand.nextInt(9);
 		}
@@ -63,11 +63,11 @@ public class JuegoRestas {
 			return rand.nextInt(99);
 		}
 		else{
-			return Math.rint(0.0 + ((99.99-0.0)*rand.nextDouble())*10)/10;
+			return rand.nextInt(99);
 		}
 	}
 
-	public double generarDigitos2(){
+	public int generarDigitos2(){
 		if (this.nivel==1){
 			return rand.nextInt(9);
 		}
@@ -81,7 +81,7 @@ public class JuegoRestas {
 			return rand.nextInt(99);
 		}
 		else{
-			return Math.rint(0.0 + ((99.99-0.0)*rand.nextDouble())*10)/10;
+			return rand.nextInt(999);
 		}
 	}
 

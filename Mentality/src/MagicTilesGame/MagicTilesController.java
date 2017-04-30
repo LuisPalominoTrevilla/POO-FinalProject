@@ -7,16 +7,21 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import Songs.Music;
+
 public class MagicTilesController implements MouseListener, Runnable, ActionListener{
     
     private MagicTiles parent;
     private MagicTilesView view;
     private MagicTilesModel model;
+    private Music wrongAnswer, cuenta;
     
     public MagicTilesController(MagicTiles parent){
         this.parent = parent;
         this.view = this.parent.getView();
         this.model = this.parent.getModel();
+        this.wrongAnswer = new Music("src\\MagicTilesGame\\Music\\wrong.wav");
+        this.cuenta = new Music("src\\MagicTilesGame\\Music\\inicio.wav");
         
         // Iniciar el Thread
         this.controllGame();
@@ -81,6 +86,7 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
                     for(int i = this.model.getTime(); i > 0; i--){
                         this.view.update();
                         this.model.subtractTime();
+                        this.cuenta.playSound();
                         Thread.sleep(1000);
                     }
                     this.model.hideTime();
@@ -124,7 +130,10 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
                     this.model.deactivateTiles();
                     this.model.setInstruction(5);
                     this.view.update();
-                    Thread.sleep(1500);
+                    Thread.sleep(1000);
+                    this.model.paintTile(this.model.getSequence()[this.model.getCurrentSequenceTile()], MagicTilesModel.YELLOW);    // Mostrar la verdadera posicion
+                    this.view.update();
+                    Thread.sleep(500);
                     String[] options = new String[2];
                     options[0] = "Si";
                     options[1] = "No";
@@ -160,6 +169,7 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
                         this.model.setState(4);     // Round Won
                     }
                 }else{
+                    this.wrongAnswer.playSound();
                     this.model.paintTile(position, MagicTilesModel.RED);
                     this.view.update();
                     this.model.setState(5);     // Game Over

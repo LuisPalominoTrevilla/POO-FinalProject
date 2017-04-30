@@ -60,9 +60,16 @@ public class Secuencia extends JButton{
 	//Agrega un color a la secuencia
 	public void SiguienteSecuencia(){
 		this.numColores++;
+		Color[] tmp = this.secuenciaColores;
+		int[] tmp2 = this.secuencia;
 		this.secuenciaColores=new Color[this.numColores];
-		this.secuencia= new int[this.numColores];
-		this.CrearSecuencia();
+		this.secuencia=new int[this.numColores];
+		for (int i = 0; i < secuenciaColores.length-1; i++){
+			this.secuenciaColores[i]=tmp[i];
+			this.secuencia[i]=tmp2[i];
+		}
+		this.secuencia[this.numColores-1]=(int)(Math.random()*4+0);
+		this.secuenciaColores[this.numColores-1]=this.colores[this.secuencia[this.numColores-1]];
 	}
 
 	
