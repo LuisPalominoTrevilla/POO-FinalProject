@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Menuprincipal.MainMenu;
+import Users.User;
 
 public class Mate extends JFrame implements ActionListener{
 	
@@ -36,14 +37,16 @@ public class Mate extends JFrame implements ActionListener{
 	private JuegoMultiplicaciones juegoMultiplicaciones;
 	private JuegoDivisiones juegoDivisiones;
 	private JuegoCombinadas juegoCombinadas;
+	private User user;
 	
-	public Mate(MathChallenge parent){
+	public Mate(MathChallenge parent, User user){
 		super();
 		this.parent = parent;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		
-		this.gm= new Juego();
+		this.user=user;
+		this.gm= new Juego(this.user);
 		this.gm.setLocationRelativeTo(null);
 		//Sumas
 		this.juegoSumas= new JuegoSumas(this.gm);
@@ -166,7 +169,7 @@ public class Mate extends JFrame implements ActionListener{
 			}
 		}
 		else if (e.getSource()==this.btDivisiones){
-			if(this.btDivisiones==null){
+			if(this.divisiones==null){
 				this.divisiones = new Divisiones(this, this.juegoDivisiones, this.gm);
 				this.gm.setJuegoDivisiones(this.juegoDivisiones);
 				this.gm.setDivisiones(this.divisiones);
