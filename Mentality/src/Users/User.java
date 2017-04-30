@@ -89,11 +89,11 @@ public class User {
             break;
         case "SimonSays":
             // Total tiempo jugado
-            this.SimonSaysStats[1] = seconds;
+            this.SimonSaysStats[1] += seconds;
             break;
         case "MathGame":
             // Total tiempo jugado
-            this.MathGameStats[1] = seconds;
+            this.MathGameStats[1] += seconds;
             break;
         }
     }
@@ -101,7 +101,12 @@ public class User {
     public String getName(){
         return this.name;
     }
-    
+     
+    public void setLevel(int nivel){
+    	if (nivel>this.SimonSaysStats[2]){
+    		this.SimonSaysStats[2]=nivel;
+    	}
+    }
     public String getImage(){
         return this.image;
     }
@@ -134,5 +139,7 @@ public class User {
         }
         return -1;      // El juego no se encuentra en la lista
     }
-    
+    public int getLevel(){
+    	return this.SimonSaysStats[2];
+    }
 }
