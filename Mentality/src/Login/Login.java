@@ -23,6 +23,10 @@ public class Login {
         return this.model;
     }
     
+    public LoginView getView(){
+        return this.view;
+    }
+    
     public void beginLogin(){
         new MainMenu(this);
     }
@@ -34,8 +38,8 @@ public class Login {
             while(line != null){
                 StringTokenizer tk = new StringTokenizer(line, ",");
                 this.model.addUser(new RegisteredUser(tk.nextToken(), 
-                                    tk.nextToken(), 
-                                    tk.nextToken(), 
+                                    tk.nextToken(),
+                                    tk.nextToken(),
                                     Integer.parseInt(tk.nextToken()),
                                     Integer.parseInt(tk.nextToken()),
                                     Integer.parseInt(tk.nextToken()),

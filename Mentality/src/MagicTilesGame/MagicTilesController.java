@@ -90,9 +90,9 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
                         Thread.sleep(1000);
                     }
                     this.model.hideTime();
-                    this.model.setInstruction(3);
+                    this.model.setInstruction(1);
                     this.view.update();
-                    this.model.resetTime();
+                    this.model.resetTime(MagicTilesModel.segundosEspera[this.model.getEsperaActual()]/1000);
                     this.model.setState(2);
                 }else if(this.model.getState() == 2){
                     this.model.generateSequence();
@@ -101,11 +101,11 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
                     for(int i = 0; i < sequence.length; i++){
                         this.model.paintTile(sequence[i], MagicTilesModel.WHITE);
                         this.view.update();
-                        Thread.sleep(1000);
+                        Thread.sleep(MagicTilesModel.segundosSecuencia[this.model.getNivelActual()]);
                     }
                     
                     // Dar 5 segundos para que el usuario memorize la secuencia
-                    this.model.setInstruction(1);
+                    
                     this.model.showTime();
                     for(int i = this.model.getTime(); i > 0; i--){
                         this.view.update();
@@ -117,7 +117,7 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
                     this.model.activateTiles();
                     this.model.paintAllWhite();
                     this.view.update();
-                    this.model.resetTime();
+                    this.model.resetTime(3);
                     this.model.setState(3);
                 }else if(this.model.getState() == 4){       // Estado en el que el usuario gano la ronda
                     this.model.deactivateTiles();
@@ -144,6 +144,7 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
                         this.model.initState();
                         this.view.update();
                     }else{
+                        // Terminar de contar tiempo jugado
                         this.parent.endGame();      // Terminar el juego
                     }
                 }
@@ -157,24 +158,56 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
     public void actionPerformed(ActionEvent e) {
         int position = Integer.parseInt(((JButton) e.getSource()).getName());
         if(e.getSource() instanceof JButton){
-            if(this.model.getState() == 3){
-                if(this.model.getSequence()[this.model.getCurrentSequenceTile()] == position){   // Checar si es el tile correspondiente en la secuencia
-                    this.model.paintTile(this.model.getSequence()[this.model.getCurrentSequenceTile()], MagicTilesModel.GREEN);
-                    this.model.addScore(1);
-                    this.model.addInactiveTile(this.model.getSequence()[this.model.getCurrentSequenceTile()]);      // Prevenir que el usuario vuelva a dar click en ella
-                    this.view.update();
-                    this.model.nextSequenceTile();
-                    if(this.model.getSequence().length == this.model.getCurrentSequenceTile()){
-                        this.model.resetSequenceTile();
-                        this.model.setState(4);     // Round Won
+            if(position == -1 && this.model.getState() != 1 && this.model.getState() != 2){
+                // Si el boton oprimido fue el de regresar
+                this.parent.endGame();
+            }else{
+                if(this.model.getState() == 3){
+                    if(this.model.getSequence()[this.model.getCurrentSequenceTile()] == position){   // Checar si es el tile correspondiente en la secuencia
+                        this.model.paintTile(this.model.getSequence()[this.model.getCurrentSequenceTile()], MagicTilesModel.GREEN);
+                        this.model.addScore(1);
+                        this.model.getUser().setScore(this.model.getScore(), this.parent.getName());
+                        this.model.addInactiveTile(this.model.getSequence()[this.model.getCurrentSequenceTile()]);      // Prevenir que el usuario vuelva a dar click en ella
+                        this.view.update();
+                        this.model.nextSequenceTile();
+                        if(this.model.getSequence().length == this.model.getCurrentSequenceTile()){
+                            this.model.resetSequenceTile();
+                            this.checkChangeLevel();
+                            this.model.setState(4);     // Round Won
+                        }
+                    }else{
+                        this.wrongAnswer.playSound();
+                        this.model.paintTile(position, MagicTilesModel.RED);
+                        this.view.update();
+                        this.model.setState(5);     // Game Over
                     }
-                }else{
-                    this.wrongAnswer.playSound();
-                    this.model.paintTile(position, MagicTilesModel.RED);
-                    this.view.update();
-                    this.model.setState(5);     // Game Over
                 }
             }
+        }
+        
+    }
+    
+    public void checkChangeLevel(){
+        /*  Checar si el jugador ha llegado lo suficientemente largo como para cambiar de nivel
+         *  Niveles:
+         *  0 - secuencias de hasta tamaño 4
+         *  1 - secuencias de hasta tamaño 6
+         *  2 - secuencias de hasta tamaño 8
+         *  3 - secuencias de 10 en adelante
+         */
+        switch(this.model.getSequence().length + 1){
+        case 4:
+            this.model.nextLevel();
+            break;
+        case 6:
+            this.model.nextLevel();
+            break;
+        case 8:
+            this.model.nextLevel();
+            break;
+        case 10:
+            this.model.nextLevel();
+            break;
         }
         
     }

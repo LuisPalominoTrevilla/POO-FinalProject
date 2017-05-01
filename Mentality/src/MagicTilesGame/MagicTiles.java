@@ -19,6 +19,7 @@ public class MagicTiles extends Game{
     public void playGame(){
         // Se inicializa todo
         this.model = new MagicTilesModel();
+        this.model.setUser(this.parent.getModel().getUsers()[this.parent.getModel().getCurrentUser()]);
         this.view = new MagicTilesView(this);
         this.controller = new MagicTilesController(this);
         this.view.addController(this.controller);

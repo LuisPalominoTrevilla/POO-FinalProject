@@ -66,6 +66,7 @@ public class MemoryController implements ActionListener, Runnable{
                     this.view.update();
                     if(this.model.getDeck()[position] == this.model.getDeck()[this.model.getImgCompare()]){ // Si la imagen actual es igual a la previa
                         this.model.addScore(30);
+                        this.model.getUser().setScore(this.model.getScore(), this.parent.getName());
                         this.view.update();
                         this.model.addPairCollected();
                         if(this.model.getPairsCollected() == this.model.getM()*this.model.getN()/2){        // Checar si fue el ultimo par
@@ -73,8 +74,7 @@ public class MemoryController implements ActionListener, Runnable{
                             this.view.update();
                             this.model.setState(4);         // State de juego completado
                             JOptionPane.showMessageDialog(this.view, String.format("Has completado la memoria en %d minutos con %d segundos y con un score de %d.", this.model.getMinutes(), this.model.getSeconds(), this.model.getScore()));
-                            this.model.getUser().setScore(this.model.getScore(), this.parent.getName());
-                            this.model.getUser().setTime(this.model.getMinutes()*60+this.model.getSeconds(), this.parent.getName());
+                            this.model.getUser().setTime(this.model.getMinutes()*60+this.model.getSeconds(), this.parent.getName());            // poner el tiempo transcurrido al usuario (Solo el mejor tiempo sera guardado)
                         }else{
                             this.model.setState(1);
                         }

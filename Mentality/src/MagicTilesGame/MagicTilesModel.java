@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import Users.User;
+
 public class MagicTilesModel {
     
     private int state;
@@ -17,6 +19,10 @@ public class MagicTilesModel {
     private final String[] instructions = {"La siguiente ronda comienza en... ","Memoriza la secuencia...","Repite la secuencia en orden...", "", "Ronda Ganada!", "Se acabo el juego"};
     private int score;                  // Se guarda el score del juego
     private int time;                   // Segundos para que el jugador memorize la secuencia
+    static final int[] segundosSecuencia = {1000, 750, 500, 250, 100};          // Milesimas de segundo en las que aparece cada tile de la secuencia dependiendo del nivel
+    static final int[] segundosEspera = {5000, 4000, 3000, 2000, 1000};          // Milesimas de segundo para que el jugador memorice la secuencia
+    private int nivelActual;            // Da a conocer el nivel para aumentar de velocidad Rango(0-4)
+    private int esperaActual;           // Tiempo para memorizar
     private ArrayList<Integer> inactiveTiles;       // Tiles individuales desactivadas
     private boolean tilesActive,
                     isTimeHidden,
@@ -27,6 +33,8 @@ public class MagicTilesModel {
                       RED = 0xba2323,
                       YELLOW = 0xe8d05c;
     
+    private User user;      // Usuario del juego
+    
     public MagicTilesModel(){
         this.state = 1;
         this.tilesActive = false;
@@ -36,11 +44,13 @@ public class MagicTilesModel {
         this.n = 5;
         this.colors = new int[m*n];
         this.score = 0;
-        this.time = 5;
+        this.time = 3;
         this.running = true;
         this.isTimeHidden = false;
         this.instruction = instructions[0];     // El juego comienza con la primera instruccion
         this.currentSequenceTile = 0;
+        this.nivelActual = 0;
+        this.esperaActual = 0;
         // Inicialmente todas las filas son de negro
         this.paintAllBlack();
       
@@ -168,8 +178,8 @@ public class MagicTilesModel {
         this.time--;
     }
     
-    public void resetTime(){
-        this.time = 5;
+    public void resetTime(int time){
+        this.time = time;
     }
     
     public void activateTiles(){
@@ -188,13 +198,35 @@ public class MagicTilesModel {
         this.running = false;
     }
     
+    public void setUser(User user){
+        this.user = user;
+    }
+    
+    public User getUser(){
+        return this.user;
+    }
+    
+    public int getNivelActual(){
+        return this.nivelActual;
+    }
+    
+    public void nextLevel(){
+        this.nivelActual++;
+        this.esperaActual++;
+    }
+    
+    public int getEsperaActual(){
+        return this.esperaActual;
+    }
+    
+    
     public void initState(){
         // Reiniciar el estado del juego
         this.state = 1;
         this.tilesActive = false;
         this.inactiveTiles.clear();
         this.score = 0;
-        this.time = 5;
+        this.time = 3;
         this.isTimeHidden = false;
         this.instruction = instructions[0];
         this.sizeSequence = 2;
@@ -202,6 +234,8 @@ public class MagicTilesModel {
         this.n = 5;
         this.colors = new int[m*n];
         this.currentSequenceTile = 0;
+        this.nivelActual = 0;
+        this.esperaActual = 0;
         this.paintAllBlack();
     }
 

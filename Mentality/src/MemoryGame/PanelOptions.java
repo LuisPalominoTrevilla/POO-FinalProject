@@ -106,8 +106,8 @@ public class PanelOptions extends JPanel{
     }
     
     public void update(){
-        this.score.setText("Puntuacion: "+this.model.getScore());
-        this.highScore.setText("Mejor Puntuacion: "+ this.model.getUser().getScore(this.parent.getName()));
+        this.score.setText(String.format("Puntuacion: %04d", this.model.getScore()));
+        this.highScore.setText(String.format("Mejor Puntuacion: %04d", this.model.getUser().getScore(this.parent.getName())));
         int minutes = this.model.getUser().getTime(this.parent.getName())/60;
         int seconds = this.model.getUser().getTime(this.parent.getName())%60;
         this.bestTime.setText(String.format("Mejor tiempo: %d:%02d", minutes, seconds));

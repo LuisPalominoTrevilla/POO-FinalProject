@@ -27,7 +27,7 @@ public class MainMenuView extends JFrame implements ActionListener{
     private JPanel panelGames, panelUser;
     
     private JButton[] games, instructions;
-    private JButton userStats;
+    private JButton userStats, logout;
     
     private JLabel userInfo;
     
@@ -66,8 +66,14 @@ public class MainMenuView extends JFrame implements ActionListener{
         this.userStats.setForeground(Color.WHITE);
         this.userStats.setFont(new Font("default", Font.BOLD, 14));
         this.userStats.addActionListener(this);
+        this.logout = new JButton("Cerrar Sesion");
+        this.logout.setBackground(new Color(0x47556b));
+        this.logout.setForeground(Color.WHITE);
+        this.logout.setFont(new Font("default", Font.BOLD, 14));
+        this.logout.addActionListener(this);
         pLeft.add(this.userInfo);
         pRight.add(this.userStats);
+        pRight.add(this.logout);
         this.panelUser.add(pLeft);
         this.panelUser.add(pRight);
         
@@ -136,6 +142,9 @@ public class MainMenuView extends JFrame implements ActionListener{
             if(e.getSource() == this.userStats){
                 // Fue presionado el boton de estadisticas del usuario
                 System.out.println("Statistics");
+            }else if(e.getSource() == this.logout){
+                // Fue presionado el boton de logout
+                this.parent.logout();
             }else if(e.getSource() == this.games[Integer.parseInt(((JButton) e.getSource()).getName())]){
                 // Fue presionado el boton de jugar
                 this.model.hide();          // Ocultar la ventana

@@ -22,4 +22,10 @@ public class MainMenu {
     public MainMenuView getView(){
         return this.view;
     }
+    
+    public void logout(){
+        this.view.dispose();
+        this.parent.getModel().show();
+        this.parent.getView().update();
+    }
 }

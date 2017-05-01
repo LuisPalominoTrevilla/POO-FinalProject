@@ -1,10 +1,13 @@
 package MagicTilesGame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class MagicTilesView extends JFrame{
     
@@ -13,6 +16,8 @@ public class MagicTilesView extends JFrame{
     private MagicTilesController controller;
     private PanelTiles pt;
     private PanelScore ps;
+    
+    private JButton regresar;       // Regresa al menu principal
     
     public MagicTilesView(MagicTiles parent){
         super();
@@ -23,8 +28,18 @@ public class MagicTilesView extends JFrame{
         this.setResizable(false);
         this.ps = new PanelScore(this);
         this.pt = new PanelTiles(this);
+        JPanel panelRegresar = new JPanel();
+        panelRegresar.setPreferredSize(new Dimension(450, 50));
+        panelRegresar.setBackground(Color.BLACK);
+        this.regresar = new JButton("Regresar al menu");
+        this.regresar.setName("-1");        // Nombre para reconocer el boton de regresar
+        this.regresar.setBackground(Color.WHITE);
+        this.regresar.setForeground(Color.BLACK);
+        panelRegresar.add(this.regresar);
+        
         this.add(this.pt);
         this.add(this.ps, BorderLayout.NORTH);
+        this.add(panelRegresar, BorderLayout.SOUTH);
         
         this.pack();
         
@@ -46,7 +61,10 @@ public class MagicTilesView extends JFrame{
     
     public void addController(MagicTilesController controller){
         this.controller = controller;
+        // Aniadir evento al boton regresar
+        this.regresar.addActionListener(this.controller);
         this.pt.addController(this.controller);
     }
+    
 
 }
