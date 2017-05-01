@@ -24,7 +24,7 @@ public class Memory extends Game{
     }
 
     public void endGame(){
-        // Aniadir score al usuario
+        this.parent.saveDatabase();
         this.view.dispose();
         this.model.stopTime();
         this.parent.getModel().show();

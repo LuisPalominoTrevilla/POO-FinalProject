@@ -39,7 +39,7 @@ public class MagicTiles extends Game{
     
     
     public void endGame(){
-        // Guardar score en usuario base datos
+        this.parent.saveDatabase();
         this.view.dispose();
         this.model.stopRunning();
         this.parent.getModel().show();

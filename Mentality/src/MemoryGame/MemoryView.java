@@ -3,8 +3,12 @@ package MemoryGame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+
+import MagicTilesGame.MagicTilesView;
 
 public class MemoryView extends JFrame{
     
@@ -18,7 +22,14 @@ public class MemoryView extends JFrame{
     public MemoryView(Memory parent){
         super();
         this.setResizable(false);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                MemoryView.this.parent.endGame();
+            }
+
+        });
+        
         this.parent = parent;
         this.model = this.parent.getModel();
         this.pb = new PanelBoard(parent);

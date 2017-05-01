@@ -71,7 +71,6 @@ public class Score extends JPanel implements Runnable{
 		this.lvMax=this.user.getLevel();
 		this.scoreMax.setText("Max Score: "+this.scMax);
 		this.nivelMax.setText("Nivel Máximo " + this.lvMax+"             ");
-		this.tmPlay=0;
 	}
 	
 	public void agregarTiempo(int tiempo){
@@ -141,6 +140,7 @@ public class Score extends JPanel implements Runnable{
 	}
 	
 	public int getTmPlay(){
+	    System.out.println(this.tmPlay);
 		return this.tmPlay;
 	}
 	

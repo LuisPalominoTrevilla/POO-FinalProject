@@ -7,6 +7,7 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+import Songs.Music;
 import Users.User;
 
 public class MemoryModel {
@@ -43,6 +44,8 @@ public class MemoryModel {
     
     private User user;
     
+    private Music shuffleSound, cardTurn, cardTurnOver;
+    
     public MemoryModel(){
         this.m = 6;
         this.n = 6;
@@ -53,6 +56,9 @@ public class MemoryModel {
         this.minutes = 0;
         this.seconds = 0;
         this.pairsCollected = 0;
+        this.shuffleSound = new Music("src\\MemoryGame\\Music\\shuffle.wav");
+        this.cardTurn = new Music("src\\MemoryGame\\Music\\cardTurn.wav");
+        this.cardTurnOver = new Music("src\\MemoryGame\\Music\\cardReturn.wav");
         this.animalImages = new String[(this.m*this.n)/2];
         this.carsImages = new String[(this.m*this.n)/2];
         this.desertsImages = new String[(this.m*this.n)/2];
@@ -222,6 +228,15 @@ public class MemoryModel {
     }
     public User getUser(){
         return this.user;
+    }
+    public Music getShuffleSound(){
+        return this.shuffleSound;
+    }
+    public Music getCardSound(){
+        return this.cardTurn;
+    }
+    public Music getCardSound2(){
+        return this.cardTurnOver;
     }
     public void initState(int memoryDeck){
         // memoryDeck es el deck de cartas seleccionado por el usuario para la siguiente ronda

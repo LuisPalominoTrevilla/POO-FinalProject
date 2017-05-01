@@ -16,14 +16,13 @@ public class MathChallenge extends Game{
         this.parent = parent;
     }
 	
-    @Override
     public void endGame() {
+        this.parent.saveDatabase();
         this.m.dispose();
         this.parent.getModel().show();
         this.parent.getView().update();
     }
 
-    @Override
     public void playGame() {
         String[] botones= {"Iniciar", "volver"};
         Object[] boton={"Iniciar", "volver"};

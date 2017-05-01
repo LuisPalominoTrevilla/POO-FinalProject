@@ -12,4 +12,10 @@ public class RegisteredUser extends User{
     public boolean comparePasswords(String pswd){
         return this.password.equals(pswd);
     }
+    
+    public String toString(){
+        return String.format("%s,%s,%s,%d,%d,%d,%d,%d,%d,%d,%d,%d", this.name, this.image, this.password,
+                this.MagicTilesStats[0],this.MagicTilesStats[1],this.MemoryGameStats[0],this.MemoryGameStats[1],this.SimonSaysStats[0],this.SimonSaysStats[1],
+                this.SimonSaysStats[2],this.MathGameStats[0],this.MathGameStats[1]);
+    }
 }

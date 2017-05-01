@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import Songs.Music;
 import Users.User;
 
 public class MagicTilesModel {
@@ -35,6 +36,11 @@ public class MagicTilesModel {
     
     private User user;      // Usuario del juego
     
+    // Musica del juego
+    private Music wrongAnswer;
+    private Music cuenta;
+    private Music[] tilesMusic;         // Se almacena cada una de las notas de cada tile
+    
     public MagicTilesModel(){
         this.state = 1;
         this.tilesActive = false;
@@ -42,7 +48,7 @@ public class MagicTilesModel {
         this.sizeSequence = 2;
         this.m = 7;
         this.n = 5;
-        this.colors = new int[m*n];
+        this.colors = new int[this.m*this.n];
         this.score = 0;
         this.time = 3;
         this.running = true;
@@ -53,7 +59,13 @@ public class MagicTilesModel {
         this.esperaActual = 0;
         // Inicialmente todas las filas son de negro
         this.paintAllBlack();
-      
+        this.wrongAnswer = new Music("src\\MagicTilesGame\\Music\\wrong.wav");
+        this.cuenta = new Music("src\\MagicTilesGame\\Music\\inicio.wav");
+        this.tilesMusic = new Music[this.m*this.n];
+        for(int i = 0; i < this.tilesMusic.length; i++){
+            // Llenar el arreglo de musica
+            this.tilesMusic[i] = new Music("src\\MagicTilesGame\\Music\\note"+i+".wav");
+        }
     }
     
     public void generateSequence(){
@@ -217,6 +229,16 @@ public class MagicTilesModel {
     
     public int getEsperaActual(){
         return this.esperaActual;
+    }
+    
+    public Music getWrongAnswer(){
+        return this.wrongAnswer;
+    }
+    public Music getCuenta(){
+        return this.cuenta;
+    }
+    public Music[] getTilesMusic(){
+        return this.tilesMusic;
     }
     
     

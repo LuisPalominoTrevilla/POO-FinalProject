@@ -4,10 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import Menuprincipal.FrameStats;
 
 public class MagicTilesView extends JFrame{
     
@@ -24,7 +28,13 @@ public class MagicTilesView extends JFrame{
         
         this.parent = parent;
         this.model = this.parent.getModel();
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                MagicTilesView.this.parent.endGame();
+            }
+        });
+        
         this.setResizable(false);
         this.ps = new PanelScore(this);
         this.pt = new PanelTiles(this);

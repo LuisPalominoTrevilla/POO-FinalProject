@@ -141,7 +141,9 @@ public class MainMenuView extends JFrame implements ActionListener{
             // Checar cual boton fue presionado
             if(e.getSource() == this.userStats){
                 // Fue presionado el boton de estadisticas del usuario
-                System.out.println("Statistics");
+                this.model.hide();
+                this.update();
+                new FrameStats(this, this.model);
             }else if(e.getSource() == this.logout){
                 // Fue presionado el boton de logout
                 this.parent.logout();

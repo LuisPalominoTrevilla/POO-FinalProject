@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import MemoryGame.MemoryView;
 import Menuprincipal.MainMenu;
 import Users.User;
 
@@ -42,7 +45,14 @@ public class Mate extends JFrame implements ActionListener{
 	public Mate(MathChallenge parent, User user){
 		super();
 		this.parent = parent;
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Mate.this.parent.endGame();
+            }
+
+        });
+		
 		this.setResizable(false);
 		
 		this.user=user;
@@ -59,7 +69,7 @@ public class Mate extends JFrame implements ActionListener{
 		//Titulo
 		JPanel Titulo= new JPanel();
 		Titulo.setPreferredSize(new Dimension(700,100));
-		Titulos lbTitulo= new Titulos(Color.BLUE, "Matemáticas", "Tahoma", 60);
+		Titulos lbTitulo= new Titulos(Color.BLUE, "Matematicas", "Tahoma", 60);
 		Titulo.add(lbTitulo,BorderLayout.CENTER);
 		
 		//Botones

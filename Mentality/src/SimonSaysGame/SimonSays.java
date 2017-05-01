@@ -19,6 +19,7 @@ public class SimonSays extends Game{
     }
 
     public void endGame() {
+        this.parent.saveDatabase();
         this.s.dispose();
         this.parent.getModel().show();
         this.parent.getView().update();

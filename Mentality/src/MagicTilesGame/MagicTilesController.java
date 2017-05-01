@@ -7,24 +7,21 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import Songs.Music;
 
 public class MagicTilesController implements MouseListener, Runnable, ActionListener{
     
     private MagicTiles parent;
     private MagicTilesView view;
     private MagicTilesModel model;
-    private Music wrongAnswer, cuenta;
     
     public MagicTilesController(MagicTiles parent){
         this.parent = parent;
         this.view = this.parent.getView();
         this.model = this.parent.getModel();
-        this.wrongAnswer = new Music("src\\MagicTilesGame\\Music\\wrong.wav");
-        this.cuenta = new Music("src\\MagicTilesGame\\Music\\inicio.wav");
         
         // Iniciar el Thread
         this.controllGame();
+        this.timerCount();
     }
     
     public void controllGame(){
@@ -86,7 +83,7 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
                     for(int i = this.model.getTime(); i > 0; i--){
                         this.view.update();
                         this.model.subtractTime();
-                        this.cuenta.playSound();
+                        this.model.getCuenta().playSound();
                         Thread.sleep(1000);
                     }
                     this.model.hideTime();
@@ -100,6 +97,7 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
                     int[] sequence = this.model.getSequence();
                     for(int i = 0; i < sequence.length; i++){
                         this.model.paintTile(sequence[i], MagicTilesModel.WHITE);
+                        this.model.getTilesMusic()[sequence[i]].playSound();
                         this.view.update();
                         Thread.sleep(MagicTilesModel.segundosSecuencia[this.model.getNivelActual()]);
                     }
@@ -165,6 +163,7 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
                 if(this.model.getState() == 3){
                     if(this.model.getSequence()[this.model.getCurrentSequenceTile()] == position){   // Checar si es el tile correspondiente en la secuencia
                         this.model.paintTile(this.model.getSequence()[this.model.getCurrentSequenceTile()], MagicTilesModel.GREEN);
+                        this.model.getTilesMusic()[this.model.getSequence()[this.model.getCurrentSequenceTile()]].playSound();
                         this.model.addScore(1);
                         this.model.getUser().setScore(this.model.getScore(), this.parent.getName());
                         this.model.addInactiveTile(this.model.getSequence()[this.model.getCurrentSequenceTile()]);      // Prevenir que el usuario vuelva a dar click en ella
@@ -176,7 +175,7 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
                             this.model.setState(4);     // Round Won
                         }
                     }else{
-                        this.wrongAnswer.playSound();
+                        this.model.getWrongAnswer().playSound();
                         this.model.paintTile(position, MagicTilesModel.RED);
                         this.view.update();
                         this.model.setState(5);     // Game Over
@@ -210,6 +209,24 @@ public class MagicTilesController implements MouseListener, Runnable, ActionList
             break;
         }
         
+    }
+    
+    private void timerCount(){
+        // Registra el tiempo que ha jugado el usuario
+        Thread hilo = new Thread(new Runnable() {
+            
+            public void run() {
+                while(MagicTilesController.this.model.isRunning()){
+                    try {
+                        Thread.sleep(1000);
+                        MagicTilesController.this.model.getUser().setTime(1, MagicTilesController.this.parent.getName());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        hilo.start();
     }
     
 }
