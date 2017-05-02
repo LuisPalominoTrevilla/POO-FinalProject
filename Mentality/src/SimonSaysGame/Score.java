@@ -19,8 +19,7 @@ public class Score extends JPanel implements Runnable{
 	            tm,
 	            lv,
 	            scMax,
-	            lvMax,
-	            tmPlay;
+	            lvMax;
 	private ColorBoard cB;
 	private boolean iniciar;
 	private SimonSaysFrame frame;
@@ -37,7 +36,6 @@ public class Score extends JPanel implements Runnable{
 		this.scMax=this.user.getScore("SimonSays");
 		this.lvMax=this.user.getLevel();
 		this.frame=frame;
-		this.tmPlay=0;
 		
 		this.score = new JLabel();
 		this.score.setText("Score: "+this.sc+"          ");
@@ -104,8 +102,7 @@ public class Score extends JPanel implements Runnable{
 					Thread hilo= new Thread (this);
 					Thread.sleep(1000);
 					if (this.iniciar==true){
-						this.tm-=1;
-						this.tmPlay++;
+						this.tm-=1;				
 						this.time.setText("Tiempo: "+tm+" segundos           ");
 						if (this.tm<6){
 							hilo.start();
@@ -137,11 +134,6 @@ public class Score extends JPanel implements Runnable{
 	
 	public int getNivel(){
 		return this.lv;
-	}
-	
-	public int getTmPlay(){
-	    System.out.println(this.tmPlay);
-		return this.tmPlay;
 	}
 	
 	public void run() {

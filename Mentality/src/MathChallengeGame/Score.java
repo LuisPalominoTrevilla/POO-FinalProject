@@ -17,8 +17,7 @@ public class Score extends JPanel implements Runnable{
 	private int sc,
 	            tm,
 	            lv,
-	            scMax,
-	            tmPlay;
+	            scMax;
 	private Juego gm;
 	private boolean iniciar;
 	private User user;
@@ -33,7 +32,6 @@ public class Score extends JPanel implements Runnable{
 		this.gm=gm;
 		this.user=user;
 		this.scMax=this.user.getScore("MathGame");
-		this.tmPlay=0;
 		this.score = new JLabel();
 		this.score.setText("Score: "+this.sc);
 		this.time = new JLabel();
@@ -60,7 +58,6 @@ public class Score extends JPanel implements Runnable{
 		this.time.setText("Tiempo: "+tm+" segundos           ");
 		this.lv=1;
 		this.nivel.setText("Nivel: "+this.lv+"          ");
-		this.tmPlay=0;
 		this.scoreMax.setText("          Max Score: "+this.scMax);
 	}
 	
@@ -102,7 +99,6 @@ public class Score extends JPanel implements Runnable{
 					if (this.iniciar==true){
 						this.tm-=1;
 						this.time.setText("Tiempo: "+tm+" segundos           ");
-						this.tmPlay++;
 						if (this.tm<6){
 							hilo.start();
 						}
@@ -118,9 +114,6 @@ public class Score extends JPanel implements Runnable{
 		}
 	}
 	
-	public int getTmPlay(){
-		return this.tmPlay;
-	}
 	
 	public void iniciaCronometro(){
 		this.iniciar=true;

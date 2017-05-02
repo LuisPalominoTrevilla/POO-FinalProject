@@ -1,2 +1,2 @@
-Luis Palomino,src\\Users\\Images\\avatar1.jpg,1234,1,23,600,80,0,0,0,0,0
+Luis Palomino,src\\Users\\Images\\avatar1.jpg,1234,30,137,600,80,87,22,2,0,11
 Miguel Bucio,src\\Users\\Images\\avatar2.jpg,miguel,2,0,0,0,988,25,8,0,4

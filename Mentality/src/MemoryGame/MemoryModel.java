@@ -46,6 +46,14 @@ public class MemoryModel {
     
     private Music shuffleSound, cardTurn, cardTurnOver;
     
+    // Las siguientes variables son para cuando el juego se vuelve de dos jugadores
+    private int numPlayersSelected;     // Cambia cada vez que se modifica el radio Button de jugadores para tener una referencia
+    private boolean twoPlayers;         // Indica de cuantos jugadores es el juego
+    private int p1PairsCollected;       // Parejas volteadas por j1
+    private int p2PairsCollected;       // Parejas volteadas por j2
+    private boolean p1Turn;             // True si es turno de jugador 1, false si es del 2
+    
+    
     public MemoryModel(){
         this.m = 6;
         this.n = 6;
@@ -69,6 +77,11 @@ public class MemoryModel {
         this.rnd = new Random();
         this.memoryDeckOptions = new boolean[4];
         this.isTimeTicking = true;
+        
+        // Variables para dos jugadores
+        this.twoPlayers = false;        // Inicia con un jugador
+        this.numPlayersSelected = 1;    // Originalmente el radio button viene por default seleccionado un jugador
+        
         for(int i = 0; i < this.memoryDeckOptions.length; i++){
             this.memoryDeckOptions[i] = false;
         }
@@ -212,6 +225,14 @@ public class MemoryModel {
         return this.pairsCollected;
     }
     public void addPairCollected(){
+        // Checa si el juego es de dos jugadores para aniadir al jugador su par
+        if(this.twoPlayers){
+            if(this.p1Turn){
+                this.p1PairsCollected++;
+            }else{
+                this.p2PairsCollected++;
+            }
+        }
         this.pairsCollected++;
     }
     public boolean getTimeTicking(){
@@ -238,6 +259,28 @@ public class MemoryModel {
     public Music getCardSound2(){
         return this.cardTurnOver;
     }
+    
+    // Metodos para dos jugadores
+    public void setNumPlayersSelected(int num){
+        // num debe ser valor 1 o 2
+        this.numPlayersSelected = num;
+    }
+    public boolean isTwoPlayers(){
+        return this.twoPlayers;
+    }
+    public boolean isP1Turn(){
+        return this.p1Turn;
+    }
+    public int getP1PairsCollected(){
+        return this.p1PairsCollected;
+    }
+    public int getP2PairsCollected(){
+        return this.p2PairsCollected;
+    }
+    public void changeTurn(){
+        this.p1Turn = !this.p1Turn;
+    }
+    
     public void initState(int memoryDeck){
         // memoryDeck es el deck de cartas seleccionado por el usuario para la siguiente ronda
         
@@ -257,6 +300,17 @@ public class MemoryModel {
 
         for(int i = 0; i < this.m*this.n; i++){
             this.turned[i] = false;           // Todas las cartas empiezan boca abajo
+        }
+        
+        // Checar si es de dos jugadores el juego
+        if(this.numPlayersSelected == 2){
+            this.twoPlayers = true;
+            this.p1Turn = true;
+            this.p1PairsCollected = 0;
+            this.p2PairsCollected = 0;
+            System.out.println("Two Players!");
+        }else{
+            this.twoPlayers = false;
         }
 
         this.shuffleDeck();

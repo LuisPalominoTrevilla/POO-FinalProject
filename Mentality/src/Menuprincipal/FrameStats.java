@@ -78,14 +78,14 @@ public class FrameStats extends JFrame implements ActionListener{
 		this.estadisticas[0][3].setText("Math Game");
 		//estadisticas del usuario
 		this.estadisticas[1][0].setText("          High Score: " + this.model.getUsers()[this.model.getCurrentUser()].getScore("MagicTiles"));
-		this.estadisticas[2][0].setText("          Total de tiempo jugado: " + this.model.getUsers()[this.model.getCurrentUser()].getTime("MagicTiles"));
+		this.estadisticas[2][0].setText("          Total de tiempo jugado: " + this.model.getUsers()[this.model.getCurrentUser()].getTime("MagicTiles")/60 + " minutos con " + this.model.getUsers()[this.model.getCurrentUser()].getTime("MagicTiles")%60 + " segundos");
 		this.estadisticas[1][1].setText("          High Score: " + this.model.getUsers()[this.model.getCurrentUser()].getScore("Memory"));
-		this.estadisticas[2][1].setText("          Mejor Tiempo: " + this.model.getUsers()[this.model.getCurrentUser()].getTime("Memory"));
+		this.estadisticas[2][1].setText("          Mejor Tiempo: " + this.model.getUsers()[this.model.getCurrentUser()].getTime("Memory")/60 + " minutos con " + this.model.getUsers()[this.model.getCurrentUser()].getTime("Memory")%60 + " segundos");
 		this.estadisticas[1][2].setText("          High Score: " + this.model.getUsers()[this.model.getCurrentUser()].getScore("SimonSays"));
-		this.estadisticas[2][2].setText("          Total de tiempo jugado: " + this.model.getUsers()[this.model.getCurrentUser()].getTime("SimonSays"));
+		this.estadisticas[2][2].setText("          Total de tiempo jugado: " + this.model.getUsers()[this.model.getCurrentUser()].getTime("SimonSays")/60 + " minutos con " + this.model.getUsers()[this.model.getCurrentUser()].getTime("SimonSays")%60 + " segundos");
 		this.estadisticas[3][2].setText("          Nivel máximo: " + this.model.getUsers()[this.model.getCurrentUser()].getLevel());
 		this.estadisticas[1][3].setText("          High Score: " + this.model.getUsers()[this.model.getCurrentUser()].getScore("MathGame"));
-		this.estadisticas[2][3].setText("          Total de tiempo jugado: " + this.model.getUsers()[this.model.getCurrentUser()].getTime("MathGame"));	
+		this.estadisticas[2][3].setText("          Total de tiempo jugado: " + this.model.getUsers()[this.model.getCurrentUser()].getTime("MathGame")/60 + " minutos con " + this.model.getUsers()[this.model.getCurrentUser()].getTime("MathGame")%60 + " segundos");	
 		//Agregar etiquetas al panel
 		this.panelStats.add(this.estadisticas[0][0]);
 		this.panelStats.add(this.estadisticas[1][0]);

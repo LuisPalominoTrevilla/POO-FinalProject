@@ -96,7 +96,6 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 		botones.setBounds(0, 325, 700, 55);
 		this.add(botones,BorderLayout.SOUTH);
 		this.setVisible(false);
-		
 	}
 	
 	public void setNivel(int nivel){
@@ -202,7 +201,6 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 	public void derrota(){
 		this.detenerCronometro();
 		this.user.setScore(this.sc.getScore(), "MathGame");
-		this.user.setTime(this.sc.getTmPlay(), "MathGame");
 		String mensaje="";
 		if ((this.juego.equals("Divisiones") || this.juegoC.equals("Divisiones")) && this.nivel>3){
 			mensaje="El resultado correcto era: " +this.resultado + "\n"
@@ -280,7 +278,6 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 	public void volver(){
 		this.sc.detenerCronometro();
 		this.user.setScore(this.sc.getScore(), "MathGame");
-		this.user.setTime(this.sc.getTmPlay(), "MathGame");
 		if (this.juego.equals("Sumas")){
 			this.sumas.setVisible(true);
 			this.setVisible(false);
@@ -313,7 +310,6 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 			}
 			else if (e.getSource()==this.btSiguienteNivel){
 				this.user.setScore(this.sc.getScore(), "MathGame");
-				this.user.setTime(this.sc.getTmPlay(), "MathGame");
 				this.nivel++;
 				this.juegos.setNivel(this.nivel);
 				this.detenerCronometro();
@@ -339,7 +335,6 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 			}
 			else if (e.getSource()==this.btNivelAnterior){
 				this.user.setScore(this.sc.getScore(), "MathGame");
-				this.user.setTime(this.sc.getTmPlay(), "MathGame");
 				this.nivel-=1;
 				this.juegos.setNivel(this.nivel);
 				this.detenerCronometro();

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -23,7 +24,7 @@ public class SimonSaysFrame extends JFrame{
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.user=user;
-		
+		this.setIconImage(new ImageIcon(this.parent.getImage()).getImage());
 		//Inicializar Componentes
 		
 		this.secuencia= new Secuencia();

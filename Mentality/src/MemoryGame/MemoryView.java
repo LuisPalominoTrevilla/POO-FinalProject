@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import MagicTilesGame.MagicTilesView;
@@ -31,6 +32,7 @@ public class MemoryView extends JFrame{
         });
         
         this.parent = parent;
+        this.setIconImage(new ImageIcon(this.parent.getImage()).getImage());
         this.model = this.parent.getModel();
         this.pb = new PanelBoard(parent);
         this.po = new PanelOptions(parent);

@@ -1,8 +1,11 @@
 package Login;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +26,7 @@ public class LoginView extends JFrame implements ActionListener{
     private Login parent;
     private LoginModel model;
     
-    private JPanel loginPanel, createAccPanel;
+    private JPanel loginPanel;
     
     private JButton[] users, userLogin;
     private JLabel[] userNames;
@@ -34,20 +37,29 @@ public class LoginView extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.parent = parent;
         this.model = this.parent.getModel();
-        
+        this.setIconImage(new ImageIcon("src\\brain.jpg").getImage());
         // Crear el panel para login
         this.loginPanel = new JPanel();
         this.loginPanel.setPreferredSize(new Dimension(820, 300));
+        this.loginPanel.setBackground(new Color(0x37ccc4));
         ((FlowLayout) this.loginPanel.getLayout()).setHgap(20);
         this.users = new JButton[this.model.getUsersSize()];
         this.userNames = new JLabel[this.model.getUsersSize()];
         this.userPasswords = new JTextField[this.model.getUsersSize()];
         this.userLogin = new JButton[this.model.getUsersSize()];
         
+        JPanel loginTitle = new JPanel();
+        loginTitle.setPreferredSize(new Dimension(820, 50));
+        loginTitle.setOpaque(false);
+        JLabel lt = new JLabel("Iniciar Sesion");
+        lt.setFont(new Font("default", Font.BOLD, 24));
+        lt.setForeground(new Color(0x063d3a));
+        loginTitle.add(lt);
+        this.loginPanel.add(loginTitle);
         for(int i = 0; i < this.model.getUsersSize(); i++){
             JPanel userSpace = new JPanel();
             userSpace.setPreferredSize(new Dimension(120, 210));
-            //userSpace.setBackground(Color.CYAN);
+            userSpace.setOpaque(false);
             this.users[i] = new JButton();
             this.users[i].setPreferredSize(new Dimension(120, 120));
             this.users[i].setIcon(new ImageIcon(this.model.getUsers()[i].getImage()));
@@ -68,6 +80,16 @@ public class LoginView extends JFrame implements ActionListener{
             this.loginPanel.add(userSpace);         // Aniadimos visualmente el usuario al panel
         }
         
+        JPanel titlePanel = new JPanel();
+        titlePanel.setPreferredSize(new Dimension(820, 80));
+        titlePanel.setBackground(new Color(0x34c1ba));
+        JLabel title = new JLabel("Mentality");
+        title.setFont(new Font("default", Font.BOLD, 40));
+        title.setForeground(new Color(0x20726e));
+        titlePanel.add(title);
+
+        
+        this.add(titlePanel, BorderLayout.NORTH);
         this.add(this.loginPanel);
         this.pack();
         

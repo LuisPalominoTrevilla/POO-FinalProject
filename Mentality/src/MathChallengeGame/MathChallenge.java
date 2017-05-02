@@ -6,28 +6,38 @@ import Games.Game;
 import Menuprincipal.MainMenu;
 import Users.User;
 
-public class MathChallenge extends Game{
+public class MathChallenge extends Game implements Runnable{
 
     private MainMenu parent;
 	private Mate m;
+	private int tm;
+	private boolean count;
     
 	public MathChallenge(MainMenu parent) {
         super("MathGame", "src\\Games\\MathChallengeThumbnail.png");
         this.parent = parent;
+        this.tm=0;
+        this.count=false;
     }
 	
     public void endGame() {
-        this.parent.saveDatabase();
+        this.count=false;
+    	this.parent.getModel().getUsers()[this.parent.getModel().getCurrentUser()].setTime(this.tm, "MathGame");
+    	this.parent.saveDatabase();
         this.m.dispose();
         this.parent.getModel().show();
         this.parent.getView().update();
     }
 
     public void playGame() {
-        String[] botones= {"Iniciar", "volver"};
+    	this.tm=0;
+    	String[] botones= {"Iniciar", "volver"};
         Object[] boton={"Iniciar", "volver"};
         User user=(this.parent.getModel().getUsers()[this.parent.getModel().getCurrentUser()]);
         this.m= new Mate(this, user);
+        this.count=true;
+        Thread hilo = new Thread(this);
+        hilo.start();
         this.m.setLocationRelativeTo(null);
         int choice = JOptionPane.showOptionDialog(m, "Bienvenido al juego de Matematicas \n"
                 + "Existen 5 modalidades de juego\n"
@@ -37,4 +47,17 @@ public class MathChallenge extends Game{
             this.endGame();
         }
     }
+
+	@Override
+	public void run() {
+		while (this.count){
+			try {
+				Thread.sleep(1000);
+				this.tm++;
+				System.out.println(this.tm);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

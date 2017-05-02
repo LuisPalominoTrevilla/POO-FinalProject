@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,7 +35,7 @@ public class MagicTilesView extends JFrame{
                 MagicTilesView.this.parent.endGame();
             }
         });
-        
+        this.setIconImage(new ImageIcon(this.parent.getImage()).getImage());
         this.setResizable(false);
         this.ps = new PanelScore(this);
         this.pt = new PanelTiles(this);

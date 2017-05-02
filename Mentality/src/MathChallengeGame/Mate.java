@@ -52,7 +52,7 @@ public class Mate extends JFrame implements ActionListener{
             }
 
         });
-		
+		this.setIconImage(new ImageIcon(this.parent.getImage()).getImage());
 		this.setResizable(false);
 		
 		this.user=user;

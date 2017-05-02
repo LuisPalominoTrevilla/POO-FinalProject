@@ -209,7 +209,6 @@ public class ColorBoard extends JPanel implements ActionListener, Runnable {
 	public void Derrota(){
 		this.frame.getUser().setScore(this.sc.getScore(), "SimonSays");
 		this.frame.getUser().setLevel(this.sc.getNivel());
-		this.frame.getUser().setTime(this.sc.getTmPlay(), "SimonSays");
 		this.sc.detenerCronometro();
 		this.musica.setTocar(6);
 		this.musica.tocar();

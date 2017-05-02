@@ -30,6 +30,9 @@ public class PanelOptions extends JPanel{
      * 3 - random
      * 
      */
+    private JRadioButton[] numPlayers;      // Permite al jugador elegir un juego para dos jugadores
+    private JPanel panelTwoPlayers;
+    private JLabel p1Pairs, p2Pairs, turn;
     
     public PanelOptions(Memory parent){
         super();
@@ -52,15 +55,47 @@ public class PanelOptions extends JPanel{
         this.bestTime.setFont(new Font("default", Font.ITALIC, 19));
         this.bestTime.setForeground(Color.WHITE);
         this.newGame = new JButton("Comenzar nuevo juego");
+        this.newGame.setBackground(new Color(0x3d201c));
+        this.newGame.setForeground(Color.WHITE);
         this.newGame.setName("-1");
         this.goBack = new JButton("Regresar al Menu");
-        this.goBack.setName("-2");      
+        this.goBack.setBackground(new Color(0x3d201c));
+        this.goBack.setForeground(Color.WHITE);
+        this.goBack.setName("-2");
         this.imageSets = new JRadioButton[4];
         this.imageSets[0] = new JRadioButton("Memoria de animales");
         this.imageSets[1] = new JRadioButton("Memoria de coches");
         this.imageSets[2] = new JRadioButton("Memoria de postres");
         this.imageSets[3] = new JRadioButton("Memoria random", true);
         
+        this.numPlayers = new JRadioButton[2];
+        this.numPlayers[0] = new JRadioButton("1 Jugador", true);
+        this.numPlayers[0].setName("One");
+        this.numPlayers[1] = new JRadioButton("2 Jugadores");
+        this.numPlayers[1].setName("Two");
+        
+        this.panelTwoPlayers = new JPanel(){
+            public void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.drawImage(new ImageIcon("src\\MemoryGame\\Images\\wood2.jpg").getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+            }
+        };
+        this.panelTwoPlayers.setPreferredSize(new Dimension(250, 150));
+        ((FlowLayout) this.panelTwoPlayers.getLayout()).setHgap(60);
+        ((FlowLayout) this.panelTwoPlayers.getLayout()).setVgap(8);
+        JLabel P2Title = new JLabel("Players");
+        P2Title.setFont(new Font("default", Font.BOLD, 18));
+        this.p1Pairs = new JLabel("Pares Jugador 1: ");
+        this.p1Pairs.setFont(new Font("default", Font.BOLD, 16));
+        this.p2Pairs = new JLabel("Pares Jugador 2: ");
+        this.p2Pairs.setFont(new Font("default", Font.BOLD, 16));
+        this.turn = new JLabel("Turno: ");
+        this.turn.setFont(new Font("default", Font.BOLD, 18));
+        this.turn.setForeground(new Color(0x961a07));
+        this.panelTwoPlayers.add(P2Title);
+        this.panelTwoPlayers.add(this.p1Pairs);
+        this.panelTwoPlayers.add(this.p2Pairs);
+        this.panelTwoPlayers.add(this.turn);
         
         ((FlowLayout) this.getLayout()).setVgap(20);
         ((FlowLayout) this.getLayout()).setHgap(20);
@@ -68,10 +103,10 @@ public class PanelOptions extends JPanel{
         JPanel panelNuevo = new JPanel(){
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
-                g.drawImage(new ImageIcon(PanelOptions.this.model.getOptionsWp()).getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+                g.drawImage(new ImageIcon("src\\MemoryGame\\Images\\wood3.jpg").getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
             }
         };
-        panelNuevo.setPreferredSize(new Dimension(250, 400));
+        panelNuevo.setPreferredSize(new Dimension(250, 350));
         ((FlowLayout) panelNuevo.getLayout()).setVgap(15);
         
         this.add(this.score);
@@ -79,6 +114,7 @@ public class PanelOptions extends JPanel{
         this.add(this.timer);
         this.add(this.bestTime);
         this.add(this.pairsCollected);
+        this.add(this.panelTwoPlayers);
         JLabel title = new JLabel("Customizar nuevo juego:");
         title.setFont(new Font("default", Font.BOLD, 18));
         title.setForeground(Color.WHITE);
@@ -94,6 +130,22 @@ public class PanelOptions extends JPanel{
             group.add(this.imageSets[i]);
             panelNuevo.add(this.imageSets[i]);
         }
+        ButtonGroup players = new ButtonGroup();
+        JPanel jp = new JPanel();
+        jp.setPreferredSize(new Dimension(250, 50));
+        jp.setOpaque(false);
+        JLabel jug = new JLabel("Numero de Jugadores");
+        jug.setFont(new Font("default", Font.BOLD, 16));
+        jug.setForeground(Color.WHITE);
+        jp.add(jug);
+        for(int i = 0; i < this.numPlayers.length; i++){
+            this.numPlayers[i].setOpaque(false);
+            this.numPlayers[i].setFont(new Font("default", Font.BOLD, 13));
+            this.numPlayers[i].setForeground(Color.WHITE);
+            players.add(this.numPlayers[i]);
+            jp.add(this.numPlayers[i]);
+        }
+        panelNuevo.add(jp);
         panelNuevo.add(this.newGame);
         this.add(panelNuevo);
         this.add(this.goBack);
@@ -114,6 +166,15 @@ public class PanelOptions extends JPanel{
         
         this.timer.setText(String.format("Tiempo transcurrido \t%d:%02d", this.model.getMinutes(), this.model.getSeconds()));
         this.pairsCollected.setText("Pares de cartas: " + this.model.getPairsCollected());
+        
+        // Updatear componentes para dos jugadores
+        this.panelTwoPlayers.setVisible(this.model.isTwoPlayers());
+        if(this.model.isTwoPlayers()){
+            this.p1Pairs.setText("Pares Jugador 1: " + this.model.getP1PairsCollected());
+            this.p2Pairs.setText("Pares Jugador 2: " + this.model.getP2PairsCollected());
+            String pTurn = (this.model.isP1Turn())?"Jugador 1":"Jugador 2";
+            this.turn.setText("Turno: " + pTurn);
+        }
     }
     
     public void addController(MemoryController controller){
@@ -126,6 +187,9 @@ public class PanelOptions extends JPanel{
         this.goBack.addActionListener(this.controller);
         for(int i = 0; i < this.imageSets.length; i++){
             this.imageSets[i].addActionListener(this.controller);
+        }
+        for(int i = 0; i < this.numPlayers.length; i++){
+            this.numPlayers[i].addActionListener(this.controller);
         }
     }
 }

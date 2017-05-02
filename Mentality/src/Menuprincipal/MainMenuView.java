@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MainMenuView extends JFrame implements ActionListener{
@@ -35,6 +36,7 @@ public class MainMenuView extends JFrame implements ActionListener{
         super("Menu Principal");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.parent = parent;
+        this.setIconImage(new ImageIcon("src\\brain.jpg").getImage());
         this.model = this.parent.getModel();
         this.games = new JButton[this.model.getNumGames()];
         this.instructions = new JButton[this.model.getNumGames()];
@@ -154,7 +156,36 @@ public class MainMenuView extends JFrame implements ActionListener{
                 this.model.getGames()[Integer.parseInt(((JButton) e.getSource()).getName())].playGame();
             }else if(e.getSource() == this.instructions[Integer.parseInt(((JButton) e.getSource()).getName())]){
                 // Fue presionado el boton de instrucciones
-                System.out.println("Instrucciones...");
+                switch(Integer.parseInt(((JButton) e.getSource()).getName())){
+                case 0:
+                    JOptionPane.showMessageDialog(this, "Bienvenido al juego de Magic Tiles \n"
+                            + "Al inicio del juego se te daran 3 segundos para prepararte para la siguiente ronda\n"
+                            + "Al inicio de cada ronda se te presentara una secuencia que deberas memorizar\n"
+                            + "Cada ronda, la secuencia aumentara uno y se hara mas rapido\n"
+                            + "El juego acaba cuando te equivoques");
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(this, "Bienvenido al juego de Memorama \n"
+                            + "Existen las modalidades de jugar solo y con otro jugador\n"
+                            + "Puedes elegir entre tres bancos de imagenes distintas\n");
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(this, "Bienvenido al juego de simon Dice \n"
+                        + "1.-Observe la secuencia de colores que \n"
+                        + "aparecera en la parte inferior de la pantalla\n"
+                        + "2.-Memorice la secuencia de Colors\n"
+                        + "3.-Repita la secuencia presionando los\n"
+                        + "Botones de la parte superior\n"
+                        + "4.-Perdera si presiona el boton incorrecto\n"
+                        + "o si se agota el tiempo\n");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(this, "Bienvenido al juego de Matematicas \n"
+                        + "Existen 5 modalidades de juego\n"
+                        + "En cada una solo encontraras ese tipo de operaciones\n"
+                        + "Responde las operaciones corectamente y acumula puntos");
+                    break;
+                }
             }
         }
     }
