@@ -54,7 +54,6 @@ public class MathChallenge extends Game implements Runnable{
 			try {
 				Thread.sleep(1000);
 				this.tm++;
-				System.out.println(this.tm);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
