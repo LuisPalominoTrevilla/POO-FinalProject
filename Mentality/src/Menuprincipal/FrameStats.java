@@ -33,6 +33,7 @@ public class FrameStats extends JFrame implements ActionListener{
 		this.parent=parent;
 		this.model=model;
 		this.estadisticas = new JLabel[4][4];
+		this.setIconImage(new ImageIcon("src\\brain.jpg").getImage());
 		//Panel
 		this.panelStats = new JPanel();
 		this.panelStats.setPreferredSize(new Dimension(700,400));

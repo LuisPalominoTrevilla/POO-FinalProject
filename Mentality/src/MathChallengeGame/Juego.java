@@ -205,13 +205,13 @@ public class Juego <t>extends JFrame implements ActionListener, Runnable, KeyLis
 		if ((this.juego.equals("Divisiones") || this.juegoC.equals("Divisiones")) && this.nivel>3){
 			mensaje="El resultado correcto era: " +this.resultado + "\n"
 					+ "Y el residuo: " + this.residuo +"\n"
-					+this.user.getName()+" tu Puntuación fue de: " +this.sc.getScore() +"\n"
-					+ "¿Quieres intentarlo de nuevo?";
+					+this.user.getName()+" tu Puntuacion fue de: " +this.sc.getScore() +"\n"
+					+ "�Quieres intentarlo de nuevo?";
 		}
 		else{
 			mensaje="El resultado correcto era: " +this.resultado + "\n"
-					+this.user.getName()+ " tu Puntuación fue de: " +this.sc.getScore() +"\n"
-					+ "¿Quieres intentarlo de nuevo?";
+					+this.user.getName()+ " tu Puntuacion fue de: " +this.sc.getScore() +"\n"
+					+ "�Quieres intentarlo de nuevo?";
 		}
 		int choice=JOptionPane.showOptionDialog(this, mensaje, "Has perdido",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,this.botones, this.boton[0]);
 		if (choice==JOptionPane.YES_OPTION){

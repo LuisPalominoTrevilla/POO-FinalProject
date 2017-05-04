@@ -41,7 +41,7 @@ public class MathChallenge extends Game implements Runnable{
         this.m.setLocationRelativeTo(null);
         int choice = JOptionPane.showOptionDialog(m, "Bienvenido al juego de Matematicas \n"
                 + "Existen 5 modalidades de juego\n"
-                + "En cada una solo encontrarás ese tipo de operaciones\n"
+                + "En cada una solo encontraras ese tipo de operaciones\n"
                 + "Responde las operaciones corectamente y acumula puntos", "Intrucciones",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,botones, boton[0]);
         if (choice==JOptionPane.NO_OPTION || choice==JOptionPane.CLOSED_OPTION){
             this.endGame();

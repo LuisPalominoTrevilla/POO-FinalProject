@@ -105,7 +105,6 @@ public class MemoryModel {
         }
         
         this.defaultCard = this.defaultCards[rnd.nextInt(this.defaultCards.length)];
-        System.out.println(this.defaultCard);
         
         this.wallpaper = "src\\MemoryGame\\Images\\grass.jpg";
         this.optionsWp = "src\\MemoryGame\\Images\\wood.jpg";
@@ -308,7 +307,6 @@ public class MemoryModel {
             this.p1Turn = true;
             this.p1PairsCollected = 0;
             this.p2PairsCollected = 0;
-            System.out.println("Two Players!");
         }else{
             this.twoPlayers = false;
         }

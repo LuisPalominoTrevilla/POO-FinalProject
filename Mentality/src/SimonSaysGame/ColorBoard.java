@@ -216,8 +216,8 @@ public class ColorBoard extends JPanel implements ActionListener, Runnable {
 		this.btGreen.setEnabled(false);
 		this.btRed.setEnabled(false);
 		this.btYellow.setEnabled(false);
-		int choice=JOptionPane.showOptionDialog(this, this.frame.getUser().getName()+ " tu Puntuación fue de: " +this.sc.getScore() +"\n"
-				+ "¿Quieres intentarlo de nuevo?", "Has perdido",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,this.botones, this.boton[0]);
+		int choice=JOptionPane.showOptionDialog(this, this.frame.getUser().getName()+ " tu Puntuacion fue de: " +this.sc.getScore() +"\n"
+				+ "�Quieres intentarlo de nuevo?", "Has perdido",JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,this.botones, this.boton[0]);
 		if (choice==JOptionPane.YES_OPTION){
 			try{	
 				this.musica.reset();
